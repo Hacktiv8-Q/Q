@@ -21,7 +21,6 @@ class Controller {
   static updateQueue(req, res, next) {
     const { status } = req.body
     const { id } = req.params
-    console.log(id, 'ini update')
     Queue.update({ status }, { where: { id } })
       .then(data => {
         res.status(200).json({ status: `success update queue id ${id}` })

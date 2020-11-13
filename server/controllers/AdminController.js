@@ -18,7 +18,7 @@ class Controller {
       .catch(next)
   }
   static loginAdmin(req, res, next) {
-    console.log(req.body)
+    console.log(req.body, 'asup ti loginadmin')
     const { email, password } = req.body
     let errors = []
     if (!email.length) errors.push('please insert email')
@@ -26,11 +26,11 @@ class Controller {
     if (errors.length) next({ name: 'UnprocessibleEntity', errors })
     Admin.findOne({ where: { email } })
       .then(data => {
-        if (!data || comparePass(password, data.password)) throw { name: 'UnAuthorized', message: 'invalid email or password' }
+        if (!data || !comparePass(password, data.password)) throw { name: 'UnAuthorized', message: 'invalid email or password' }
         let payload = {
           id: data.id,
           email: data.email,
-          role: customer.role
+          role: data.role
         }
         const id = +data.id
         let token = generateToken(payload)
