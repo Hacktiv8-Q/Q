@@ -23,7 +23,7 @@ function errHandler(err, req, res, next) {
 			break;
 		case "SequelizeForeignKeyConstraintError":
 			statusCode = 400;
-			message = `ForeignKey error!`;
+			errors.push(`ForeignKey error!`);
 			break;
 		case "NotFoundError":
 		case "ForbiddenError":
@@ -31,12 +31,16 @@ function errHandler(err, req, res, next) {
 			statusCode = 403;
 		case "BadRequestError":
 			statusCode = err.statusCode;
-			message = err.message;
+			errors.push(err.message);
 			break;
 		case "TokenExpiredError":
 			statusCode = 401;
-			message = "Failed to authenticate";
+			errors.push("Failed to authenticate");
 			break;
+		case "UnprocessibleEntity":
+			statusCode = 422
+			errors = err.errors
+            break
 		default:
 			errors.push(err.msg || "internal server error");
 			statusCode = err.statusCode || 500;
