@@ -24,13 +24,13 @@ class Controller {
     if (!email.length) errors.push('please insert email')
     if (!password.length) errors.push('please insert password')
     if (errors.length) next({ name: 'UnprocessibleEntity', errors })
-    const obj = { email, password }
     Admin.findOne({ where: { email } })
       .then(data => {
         if (!data || comparePass(password, data.password)) throw { name: 'UnAuthorized', message: 'invalid email or password' }
         let payload = {
           id: data.id,
-          email: data.email
+          email: data.email,
+          role: customer.role
         }
         const id = +data.id
         let token = generateToken(payload)
