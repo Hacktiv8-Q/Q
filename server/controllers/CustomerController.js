@@ -11,10 +11,7 @@ class Controller {
       .then(customer => {
         res.status(201).json({ id: customer.id, email: customer.email, firstName: customer.firstName, lastName: customer.lastName})
       })
-      .catch(err => {
-        console.log(err, "<<< ini error register")
-        next(err)
-      })
+      .catch(next)
   }
   static login(req, res, next) {
     const { email, password } = req.body
@@ -31,13 +28,10 @@ class Controller {
         let token = generateToken(payload)
         res.status(200).json({ token })
       })
-      .catch(err => {
-        next(err)
-      })
+      .catch(next)
   }
   static googleSign(req, res, next) {
     let email
-    console.log(req.body.tokenGoogle, '<<< ini token google')
     const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     client.verifyIdToken({
       idToken: req.body.tokenGoogle,
