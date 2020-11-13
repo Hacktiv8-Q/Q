@@ -37,6 +37,7 @@ class Controller {
       })
       .then(data => {
         if (!data) throw { name: 'OutletNotFound', message: 'Not Found' }
+        res.status(201).json({ message: 'Outlet successfully edited'})
       })
       .catch(next)
   }

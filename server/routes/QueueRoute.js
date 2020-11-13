@@ -3,11 +3,9 @@ const QueueController = require('../controllers/QueueController')
 const { adminAuthentication, customerAuthentication } = require('../middlewares/authentication')
 const { customerAuthorization, adminCashierAuthorization } = require('../middlewares/authorization')
 
-router.use(customerAuthentication)
-router.get('/', customerAuthorization, QueueController.getQueue)
-router.post('/', customerAuthorization, QueueController.addQueue)
-router.use(adminAuthentication)
-router.put('/:id', adminCashierAuthorization, QueueController.updateQueue)
-router.delete('/:id', adminCashierAuthorization, QueueController.deleteQueue)
+router.get('/', customerAuthentication, customerAuthorization, QueueController.getQueue)
+router.post('/', customerAuthentication, customerAuthorization, QueueController.addQueue)
+router.put('/:id', adminAuthentication, adminCashierAuthorization, QueueController.updateQueue)
+router.delete('/:id', adminAuthentication, adminCashierAuthorization, QueueController.deleteQueue)
 
 module.exports = router
