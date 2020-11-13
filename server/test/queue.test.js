@@ -3,7 +3,6 @@ const app = require('../app')
 const { Queue, Customer } = require('../models')
 const { generateToken } = require('../helper/jwt')
 const { comparePass } = require('../helper/bcrypt')
-const { compareSync } = require('bcryptjs')
 
 let token
 let id
