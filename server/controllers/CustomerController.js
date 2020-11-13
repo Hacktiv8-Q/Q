@@ -17,9 +17,9 @@ class Controller {
     const { email, password } = req.body
     Customer.findOne({ where: { email } })
       .then(customer => {
-        if (!customer) throw { msg: "invalid email or password" }
+        if (!customer) throw { msg: "invalid email or password", statusCode: 400 }
         let verifyPass = comparePass(password, customer.password)
-        if (!verifyPass) throw { msg: "invalid email or password" }
+        if (!verifyPass) throw { msg: "invalid email or password", statusCode: 400 }
         let payload = {
           id: customer.id,
           email: customer.email,
