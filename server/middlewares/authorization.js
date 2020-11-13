@@ -10,7 +10,7 @@ function outletAuthorization(req, res, next) {
 	if (req.userData.role === "outlet") {
 		next();
 	} else {
-		throw { msg: "kamu bukan outlet", statusCode: 403 };
+		throw { msg: "kamu bukan pemilik outlet!", statusCode: 403 };
 	}
 }
 
