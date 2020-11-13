@@ -21,8 +21,8 @@ describe("Register Customer / Succes Case", () => {
             .send({
                 email: "tes@gmail.com",
                 password: "tes123",
-                firstName: "tes depan",
-                lastName: "tes belakang"
+                firstName: "nama depan",
+                lastName: "nama belakang"
             })
             .end((err, res) => {
                 if (err) throw err
