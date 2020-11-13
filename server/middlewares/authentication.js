@@ -1,3 +1,4 @@
+const { decode } = require("jsonwebtoken");
 const { verifyToken } = require("../helper/jwt");
 const { Admin, Outlet, Customer } = require("../models");
 
@@ -10,6 +11,7 @@ async function adminAuthentication(req, res, next) {
 		});
 		if (!admin) throw { msg: "authentication failed", statusCode: 401 };
 		req.userData = decoded;
+		console.log(decoded, 'ini admin auth')
 		next();
 	} catch (err) {
 		next(err);

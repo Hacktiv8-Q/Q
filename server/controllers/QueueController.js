@@ -21,7 +21,11 @@ class Controller {
   static updateQueue(req, res, next) {
     const { status } = req.body
     const { id } = req.params
-    Queue.update({ status }, { where: { id } })
+    Queue.findOne({where: {id}})
+      .then(data => {
+        if(!data) throw { msg: "Id Not Found" , statusCode: 404 }
+        return data.update({ status }, { where: { id } })
+      })
       .then(data => {
         res.status(200).json({ status: `success update queue id ${id}` })
       })
@@ -29,7 +33,11 @@ class Controller {
   }
   static deleteQueue(req, res, next) {
     const { id } = req.params
-    Queue.destroy({ where: { id } })
+    Queue.findOne({where: {id}})
+      .then(data => {
+        if(!data) throw { msg: "Id Not Found" , statusCode: 404 }
+        return data.destroy({ where: { id } })
+      })
       .then(data => {
         res.status(200).json({ status: `success delete queue id ${id}` })
       })
