@@ -19,10 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     category: DataTypes.STRING,
-    AdminId: DataTypes.INTEGER
+    AdminId: DataTypes.INTEGER,
+    image_url: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Outlet',
+    modelName: 'Outlet'
   });
   return Outlet;
 };
