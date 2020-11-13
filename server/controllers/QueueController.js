@@ -10,9 +10,10 @@ class QueueController {
     }
 
     static addQueue(req, res, next) {
-        const { OutletId } = +req.body
+        const { OutletId } = req.body
         const CustomerId = +req.userData.id
         const status = 'queue'
+        console.log(OutletId, 'ini outletid')
 
         Queue.create({ OutletId, CustomerId, status })
             .then(queue => {
@@ -23,22 +24,21 @@ class QueueController {
 
     static updateQueue(req, res, next) {
         const { status } = req.body
-        const { id } = +req.params
-
+        const { id } = req.params
+        console.log(id, 'ini update')
         Queue.update({ status }, { where: { id } })
             .then(data => {
-                console.log(data, '<<<<<< ini data update')
-                res.status(200).json({status: `success update queue id ${id}`})
+                res.status(200).json({ status: `success update queue id ${id}` })
             })
             .catch(err => next(err))
     }
 
     static deleteQueue(req, res, next) {
-        const { id } = +req.params
+        const { id } = req.params
 
         Queue.destroy({ where: { id } })
             .then(data => {
-                res.status(200).json({status: `success delete queue id ${id}`})
+                res.status(200).json({ status: `success delete queue id ${id}` })
             })
             .catch(err => next(err))
 
