@@ -9,8 +9,7 @@ class Controller {
     const { firstName, lastName, email, password } = req.body
     Customer.create({ firstName, lastName, email, password })
       .then(customer => {
-        console.log(customer, '<<< ini user dari register')
-        res.status(201).json({ id: customer.id, email: customer.email, organization: customer.organization })
+        res.status(201).json({ id: customer.id, email: customer.email, firstName: customer.firstName, lastName: customer.lastName})
       })
       .catch(err => {
         console.log(err, "<<< ini error register")
@@ -21,7 +20,6 @@ class Controller {
     const { email, password } = req.body
     Customer.findOne({ where: { email } })
       .then(customer => {
-        console.log(customer, 'ini login customer')
         if (!customer) throw { msg: "invalid email or password" }
         let verifyPass = comparePass(password, customer.password)
         if (!verifyPass) throw { msg: "invalid email or password" }
@@ -34,7 +32,6 @@ class Controller {
         res.status(200).json({ token })
       })
       .catch(err => {
-        console.log(err, "<<< ini error login")
         next(err)
       })
   }
