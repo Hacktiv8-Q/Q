@@ -10,16 +10,21 @@ function errHandler(err, req, res, next) {
 			statusCode = 401;
 			break;
 		case "SequelizeValidationError":
+			statusCode = 400;
 			err.errors.forEach((el) => {
 				errors.push(el.message);
 			});
+			break;
+		case "UnAuthorized":
+			console.log("><><><><><><>><><><><< Cek masuk pak eko");
 			statusCode = 400;
+			errors.push(err.message);
 			break;
 		case "SequelizeUniqueConstraintError":
+			statusCode = 400;
 			err.errors.forEach((el) => {
 				errors.push(el.message);
 			});
-			statusCode = 400;
 			break;
 		case "SequelizeForeignKeyConstraintError":
 			statusCode = 400;
@@ -38,9 +43,9 @@ function errHandler(err, req, res, next) {
 			errors.push("Failed to authenticate");
 			break;
 		case "UnprocessibleEntity":
-			statusCode = 422
-			errors = err.errors
-            break
+			statusCode = 422;
+			errors = err.errors;
+			break;
 		default:
 			errors.push(err.msg || "internal server error");
 			statusCode = err.statusCode || 500;

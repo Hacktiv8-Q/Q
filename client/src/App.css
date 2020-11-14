@@ -1,0 +1,47 @@
+html,
+body,
+#root,
+.section,
+.container,
+.columns {
+  min-height: 100vh;
+  height: 100%;
+}
+
+.circle-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.circle {
+  border: 8px solid #00d1b2;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.circle-fill {
+  background-color: #00d1b2;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.circle h1 {
+  font-size: 120px;
+  font-weight: bolder;
+}
+
+.circle-fill h1 {
+  color: #ffffff;
+  font-size: 130px;
+}
+
+.list-group > .list-group-item {
+  background-color: #F6F5F5;
+  border: 1px solid #aaaaaa;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}

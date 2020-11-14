@@ -1,3 +1,4 @@
+const { decode } = require("jsonwebtoken");
 const { verifyToken } = require("../helper/jwt");
 const { Admin, Outlet, Customer } = require("../models");
 
@@ -10,6 +11,7 @@ async function adminAuthentication(req, res, next) {
 		});
 		if (!admin) throw { msg: "authentication failed", statusCode: 401 };
 		req.userData = decoded;
+		console.log(decoded, "ini admin auth");
 		next();
 	} catch (err) {
 		next(err);
@@ -22,7 +24,7 @@ async function customerAuthentication(req, res, next) {
 		let customer = await Customer.findOne({
 			where: { email: decoded.email },
 		});
-		if (!customer) throw { msg: "authentication failed", statusCode: 401 };
+		if (!customer) throw { message: "authentication failed", statusCode: 401 };
 		req.userData = decoded;
 		next();
 	} catch (err) {
@@ -32,6 +34,6 @@ async function customerAuthentication(req, res, next) {
 
 module.exports = {
 	adminAuthentication,
-	customerAuthentication
+	customerAuthentication,
 	// outletAuthentication,
 };
