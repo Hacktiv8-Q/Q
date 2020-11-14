@@ -1,10 +1,10 @@
 const request = require("supertest");
 const app = require("../app");
-const { Customer } = require("../models");
+const { Admin } = require("../models");
 
 let id;
 afterAll((done) => {
-	Customer.destroy({ where: { id } })
+	Admin.destroy({ where: { id } })
 		.then((_) => {
 			done();
 		})
@@ -12,36 +12,33 @@ afterAll((done) => {
 			done(err);
 		});
 });
+describe("Register Admin / Succes Case", () => {
+	test("Should return an object with key: id, firstName, lastName, email", (done) => {
+		request(app)
+			.post("/admins/register")
+			.send({
+				email: "tes@gmail.com",
+				password: "tes admin",
+				firstName: "tes admin",
+				lastName: "tes admin",
+			})
+			.end((err, res) => {
+				if (err) throw err;
+				else {
+					id = res.body.data.id;
+					expect(res.status).toBe(201);
+					expect(res.body.data).toHaveProperty("id", expect.any(Number));
+					expect(res.body.data).toHaveProperty("email");
+					done();
+				}
+			});
+	});
+});
 
-describe("Register Customer / Succes Case", () => {
-    test("Should return an object with key: id, firstName, lastName, email", (done) => {
-        request(app)
-            .post('/customers/register')
-            .send({
-                email: "tes@gmail.com",
-                password: "tes123",
-                firstName: "nama depan",
-                lastName: "nama belakang"
-            })
-            .end((err, res) => {
-                if (err) throw err
-                else {
-                    id = res.body.id
-                    expect(res.status).toBe(201)
-                    expect(res.body).toHaveProperty('id', expect.any(Number))
-                    expect(res.body).toHaveProperty('email')
-                    expect(res.body).toHaveProperty('firstName')
-                    expect(res.body).toHaveProperty('lastName')
-                    done()
-                }
-            })
-    })
-})
-
-describe("Register Customer / Error Case", () => {
+describe("Register Admin / Error Case", () => {
 	test("Failed because empty field", (done) => {
 		request(app)
-			.post("/customers/register")
+			.post("/admins/register")
 			.send({
 				email: "",
 				password: "tes123",
@@ -60,7 +57,7 @@ describe("Register Customer / Error Case", () => {
 	});
 	test("Failed because wrong email format", (done) => {
 		request(app)
-			.post("/customers/register")
+			.post("/admins/register")
 			.send({
 				email: "tes",
 				password: "tes123",
@@ -79,7 +76,7 @@ describe("Register Customer / Error Case", () => {
 	});
 	test("Failed because password is null", (done) => {
 		request(app)
-			.post("/customers/register")
+			.post("/admins/register")
 			.send({
 				email: "tes@gmail.com",
 				password: null,
@@ -98,13 +95,13 @@ describe("Register Customer / Error Case", () => {
 	});
 });
 
-describe("Login Customer / Success Case", () => {
+describe("Login Admin / Success Case", () => {
 	test("Should sent an Object with keys: token", (done) => {
 		request(app)
-			.post("/customers/login")
+			.post("/admins/login")
 			.send({
-				email: "customer@gmail.com",
-				password: "customer",
+				email: "admin@gmail.com",
+				password: "admin",
 			})
 			.end(function (err, res) {
 				if (err) throw err;
@@ -117,12 +114,12 @@ describe("Login Customer / Success Case", () => {
 	});
 });
 
-describe("Login Customer / Error Case", () => {
+describe("Login Admin / Error Case", () => {
 	test("Failed because wrong password", (done) => {
 		request(app)
-			.post("/customers/login")
+			.post("/admins/login")
 			.send({
-				email: "basilius@gmail.com",
+				email: "admin@gmail.com",
 				password: "salahpassword",
 			})
 			.end(function (err, res) {
@@ -139,15 +136,16 @@ describe("Login Customer / Error Case", () => {
 
 	test("Failed because wrong email", (done) => {
 		request(app)
-			.post("/customers/login")
+			.post("/admins/login")
 			.send({
 				email: "salahemail@mail.com",
-				password: "basilius123",
+				password: "admin",
 			})
 			.end(function (err, res) {
 				const errors = ["invalid email or password"];
 				if (err) throw err;
 				else {
+					console.log(res.status, res.body, "<<<<<<<<<<<<<<<<<<<<< cek test");
 					expect(res.status).toBe(400);
 					expect(res.body).toHaveProperty("errors", expect.any(Array));
 					expect(res.body.errors).toEqual(errors);
@@ -158,7 +156,7 @@ describe("Login Customer / Error Case", () => {
 
 	test("Failed because empty email or password", (done) => {
 		request(app)
-			.post("/customers/login")
+			.post("/admins/login")
 			.send({
 				email: "",
 				password: "",
