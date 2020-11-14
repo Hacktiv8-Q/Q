@@ -1,9 +1,9 @@
 html,
 body,
 #root,
-.section,
-.container,
-.columns {
+#root > .section,
+#root > .section > .container,
+#root > .section > .container > .columns {
   min-height: 100vh;
   height: 100%;
 }
@@ -40,8 +40,28 @@ body,
 }
 
 .list-group > .list-group-item {
-  background-color: #F6F5F5;
+  background-color: #f6f5f5;
   border: 1px solid #aaaaaa;
   border-radius: 4px;
   margin-bottom: 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  content: '' !important;
+}
+
+/* the parent */
+.slick-slide > div {
+  margin: 0 50px !important;
+}
+
+.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.border-light {
+  border: 1px solid hsl(0, 0%, 86%) !important;
 }

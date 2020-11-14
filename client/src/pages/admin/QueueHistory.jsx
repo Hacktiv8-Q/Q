@@ -1,23 +1,23 @@
 import BackButton from "components/BackButton";
 
-export default function Categories() {
+export default function QueueHistory() {
   return (
-    <div className="columns is-centered is-vcentered">
+    <div className="columns is-centered">
       <div className="column is-6">
         <BackButton />
         <h1 className="title">
-          Categories
+          Queue History List
         </h1>
         <div className="content">
           <div className="panel list-group">
             <a className="panel-block list-group-item" href="!#">
-              Kesehatan
+              1. Nasrul Ilmi
             </a>
             <a className="panel-block list-group-item" href="!#">
-              Tempat Makan
+              2. Riki Hidayat
             </a>
             <a className="panel-block list-group-item" href="!#">
-              Otomotif
+              3. Fernando
             </a>
           </div>
         </div>
