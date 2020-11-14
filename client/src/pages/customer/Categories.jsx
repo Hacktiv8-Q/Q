@@ -1,7 +1,10 @@
+import BackButton from "components/BackButton";
+
 export default function Categories() {
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-6">
+        <BackButton />
         <h1 className="title">
           Categories
         </h1>
