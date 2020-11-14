@@ -9,14 +9,22 @@ import {
   StatusQueue,
   StatusSuccess,
   Categories,
-  OutletList,
+  OutletList as OutletListCustomer,
   Login as LoginCustomer,
   Register as RegisterCustomer
 } from "./pages/customer";
-import { Home } from "./pages/admin";
+import {
+  AddOutlet,
+  Home,
+  QRCode,
+  QueueHistory,
+  QueueList,
+  OutletList as OutletListAdmin
+} from "./pages/admin";
 import './App.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ChooseRole from "pages/ChooseRole";
 
 export default function App() {
   return (
@@ -24,11 +32,16 @@ export default function App() {
       <section className="section">
         <div className="container">
           <Switch>
-            {/* Customer Route */}
+            {/* General */}
             <Route path="/" exact>
+              <ChooseRole />
+            </Route>
+
+            {/* Customer Route */}
+            <Route path="/status" exact>
               <Status />
             </Route>
-            <Route path="/status">
+            <Route path="/status-queue">
               <StatusQueue />
             </Route>
             <Route path="/status-success">
@@ -41,7 +54,7 @@ export default function App() {
               <ScanQRCode />
             </Route>
             <Route path="/outlet-list">
-              <OutletList />
+              <OutletListCustomer />
             </Route>
             <Route path="/login">
               <LoginCustomer />
@@ -51,8 +64,25 @@ export default function App() {
             </Route>
 
             {/* Admin Route */}
-            <Route path="/admin/">
+            {/* Home for admin Cashier */}
+            <Route path="/admin/" exact>
               <Home />
+            </Route>
+            {/* Home for admin Owner */}
+            <Route path="/admin/outlet-list">
+              <OutletListAdmin />
+            </Route>
+            <Route path="/admin/outlet-add">
+              <AddOutlet />
+            </Route>
+            <Route path="/admin/qrcode">
+              <QRCode />
+            </Route>
+            <Route path="/admin/queue-list">
+              <QueueList />
+            </Route>
+            <Route path="/admin/queue-history">
+              <QueueHistory />
             </Route>
           </Switch>
         </div>

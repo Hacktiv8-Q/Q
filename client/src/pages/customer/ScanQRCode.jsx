@@ -1,6 +1,6 @@
+import BackButton from 'components/BackButton'
 import { useState } from 'react'
 import QrReader from 'react-qr-reader'
-import { Link } from 'react-router-dom'
 
 export default function QueueStatus() {
   const [result, setResult] = useState('No Result')
@@ -18,14 +18,7 @@ export default function QueueStatus() {
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-5">
-        <Link
-          to="/"
-          className="button is-link is-light is-medium mb-3"
-        >
-          <span className="icon fa-lg">
-            <i className="fas fa-angle-left" />
-          </span>
-        </Link>
+        <BackButton />
         <QrReader
           delay={300}
           onError={handleError}
