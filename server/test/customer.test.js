@@ -103,8 +103,8 @@ describe("Login Customer / Success Case", () => {
 		request(app)
 			.post("/customers/login")
 			.send({
-				email: "customer@gmail.com",
-				password: "customer",
+				email: "basilius@gmail.com",
+				password: "basilius123",
 			})
 			.end(function (err, res) {
 				if (err) throw err;
