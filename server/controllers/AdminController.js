@@ -5,6 +5,7 @@ const { generateToken } = require('../helper/jwt')
 
 class Controller {
   static registerAdmin(req, res, next) {
+    console.log(req.query, 'asup ti regiter')
     const { firstName, lastName, email, password } = req.body
     const obj = { firstName, lastName, email, password }
     Admin.create(obj)
