@@ -1,24 +1,28 @@
-const { Queue } = require('../models')
+const { Queue, Outlet } = require('../models')
 const { generateToken, verifyToken } = require('../helper/jwt')
+const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
 
 class Controller {
   static getQueue(req, res, next) {
-    Queue.findAll()
-      .then(queue => {
-        res.status(200).json({ queue })
+    const id = +req.params.outletId
+    Outlet.findOne({where: {id}, include:[Queue]})
+      .then(data => {
+        console.log(data.dataValues.Queues.length, 'ASUP TI FETCH QUEUE')
+        data = {
+          name: data.dataValues.name,
+          imageUrl: data.dataValues.image_url,
+          totalQueue: data.dataValues.Queues.length
+        }
+        res.status(200).json({ data })
       })
       .catch(err => next(err))
   }
   static addQueue(req, res, next) {
-    const { OutletId } = req.body
+    const OutletId = +req.params.outletId
     const CustomerId = +req.userData.id
     const status = 'queue'
     const email = req.userData.email
-    let uniqueCode = ''
-    for (let i = 0; i < 5; i++) {
-      uniqueCode += email[Math.floor(Math.random() * email.length)]
-    }
-    uniqueCode = generateToken(uniqueCode)
+    const uniqueCode = uniqueCodeGenerator(email)
     Queue.create({ OutletId, CustomerId, status, uniqueCode })
       .then(queue => {
         queue.uniqueCode = verifyToken(queue.uniqueCode)
