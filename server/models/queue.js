@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    uniqueCode: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Queue',

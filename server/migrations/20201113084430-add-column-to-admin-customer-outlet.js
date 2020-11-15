@@ -3,9 +3,9 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
-      queryInterface.addColumn('Admins', 'role', {type: Sequelize.STRING}),
-      queryInterface.addColumn('Customers', 'role', {type: Sequelize.STRING}),
-      queryInterface.addColumn('Outlets', 'image_url', {type: Sequelize.STRING})
+      queryInterface.addColumn('Admins', 'role', { type: Sequelize.STRING }),
+      queryInterface.addColumn('Customers', 'role', { type: Sequelize.STRING }),
+      queryInterface.addColumn('Outlets', 'image_url', { type: Sequelize.STRING })
     ])
   },
 
