@@ -19,7 +19,7 @@ class Controller {
 	static loginAdmin(req, res, next) {
 		console.log(req.body, "asup ti loginadmin");
 		const { email, password } = req.body;
-		let errors = [];
+		// let errors = [];
 		//	if (!email.length) errors.push("please insert email");
 		//	if (!password.length) errors.push("please insert password");
 		//	if (errors.length) next({ name: "UnprocessibleEntity", errors });

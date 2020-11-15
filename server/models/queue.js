@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     CustomerId: DataTypes.INTEGER,
     OutletId: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    uniqueCode: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Queue',
