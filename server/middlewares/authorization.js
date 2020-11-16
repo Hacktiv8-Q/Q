@@ -1,5 +1,3 @@
-const { compareSync } = require("bcryptjs");
-
 function adminAuthorization(req, res, next) {
 	if (req.userData.role === "admin") {
 		next();
@@ -8,7 +6,6 @@ function adminAuthorization(req, res, next) {
 	}
 }
 function adminCashierAuthorization(req, res, next) {
-	console.log(req.userData.role, 'ini role admin')
 	if (req.userData.role === 'admin' || req.userData.role === 'cashier') {
 		next()
 	} else {

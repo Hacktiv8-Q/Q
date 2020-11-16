@@ -1,4 +1,8 @@
+import { useSelector } from "react-redux"
+
 export default function StatusQueue() {
+  const { newQueue } = useSelector(state => state.queue)
+
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-6">

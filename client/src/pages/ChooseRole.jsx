@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function ChooseRole() {
   return (
     <div className="columns is-centered is-vcentered">
@@ -18,9 +20,9 @@ export default function ChooseRole() {
                 <b>Merchant</b>
               </button>
               <p className="subtitle is-6 has-text-centered mb-2">OR</p>
-              <button className="button is-primary is-outlined is-medium is-fullwidth">
+              <Link to="/login" className="button is-primary is-outlined is-medium is-fullwidth">
                 <b>Customer</b>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import {
   Status,
@@ -26,6 +27,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChooseRole from "pages/ChooseRole";
 
+const PrivateRouteCustomer = ({component: Component, ...rest}) => {
+  return (
+    <Route {...rest} render={() => {
+      if(localStorage.tokenCustomer){
+        return <Component />
+      }else {
+        return <Redirect to="/login" />
+      }
+    }} 
+    />
+  )
+}
+
 export default function App() {
   return (
     <Router>
@@ -38,24 +52,12 @@ export default function App() {
             </Route>
 
             {/* Customer Route */}
-            <Route path="/status" exact>
-              <Status />
-            </Route>
-            <Route path="/status-queue">
-              <StatusQueue />
-            </Route>
-            <Route path="/status-success">
-              <StatusSuccess />
-            </Route>
-            <Route path="/categories">
-              <Categories />
-            </Route>
-            <Route path="/scan">
-              <ScanQRCode />
-            </Route>
-            <Route path="/outlet-list">
-              <OutletListCustomer />
-            </Route>
+            <PrivateRouteCustomer path="/status" component={Status} exact />
+            <PrivateRouteCustomer path="/status-queue" component={StatusQueue} />
+            <PrivateRouteCustomer path="/status-success" component={StatusSuccess} />
+            <PrivateRouteCustomer path="/categories" component={Categories} />
+            <PrivateRouteCustomer path="/scan" component={ScanQRCode} />
+            <PrivateRouteCustomer path="/outlet-list" component={OutletListCustomer} />
             <Route path="/login">
               <LoginCustomer />
             </Route>
