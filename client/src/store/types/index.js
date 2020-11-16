@@ -1,4 +1,7 @@
 export const FETCH_QUEUE = 'FETCH_QUEUE'
 export const ADD_QUEUE = 'ADD_QUEUE'
-export const LOGIN = 'LOGIN'
+export const LOGIN_CUSTOMER = 'LOGIN_CUSTOMER'
 export const REGISTER_CUSTOMER = "REGISTER_CUSTOMER";
+export const LOGIN_ADMIN = 'LOGIN_ADMIN'
+export const REGISTER_ADMIN = 'REGISTER_ADMIN'
+export const REGISTER_CASHIER = 'REGISTER_CASHIER'
