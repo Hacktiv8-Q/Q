@@ -19,9 +19,9 @@ class Controller {
   }
   static addQueue(req, res, next) {
     const OutletId = +req.params.outletId
-    const CustomerId = +req.userData.id
+    const CustomerId = 1 //+req.userData.id
     const status = 'queue'
-    const email = req.userData.email
+    const email = 'basilius@gmail.com' //req.userData.email
     const uniqueCode = uniqueCodeGenerator(email)
     Queue.create({ OutletId, CustomerId, status, uniqueCode })
       .then(queue => {

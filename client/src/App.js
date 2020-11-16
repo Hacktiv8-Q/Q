@@ -34,7 +34,8 @@ export default function App() {
           <Switch>
             {/* General */}
             <Route path="/" exact>
-              <ChooseRole />
+              {/* <ChooseRole /> */}
+              <Status />
             </Route>
 
             {/* Customer Route */}
