@@ -8,10 +8,16 @@ export default function Status() {
           You don't have any queue
         </h1>
         <Link
+          to="/categories"
+          className="button is-primary is-medium is-fullwidth has-text-weight-semibold mb-5"
+        >
+          ADD QUEUE
+        </Link>
+        <Link
           to="/scan"
           className="button is-primary is-medium is-fullwidth has-text-weight-semibold"
         >
-          ADD QUEUE
+          Scan QRCode
         </Link>
       </div>
     </div>
