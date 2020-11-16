@@ -12,7 +12,7 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { name: 'OutletNotFound', message: 'Not Found' }
+        if (!data) throw { name: 'OutletNotFound', message: 'Not Found' }
         res.status(200).json({ data })
       })
       .catch(next)
@@ -37,7 +37,7 @@ class Controller {
       })
       .then(data => {
         if (!data) throw { name: 'OutletNotFound', message: 'Not Found' }
-        res.status(201).json({ message: 'Outlet successfully edited'})
+        res.status(201).json({ message: 'Outlet successfully edited' })
       })
       .catch(next)
   }
@@ -45,7 +45,7 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { name: 'OutletNotFound', message: 'Not Found' }
+        if (!data) throw { name: 'OutletNotFound', message: 'Not Found' }
         Outlet.destroy({ where: { id } })
         res.status(200).json({ message: 'Outlet successfully deleted', data })
       })

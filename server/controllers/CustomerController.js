@@ -9,7 +9,7 @@ class Controller {
     const { firstName, lastName, email, password } = req.body
     Customer.create({ firstName, lastName, email, password })
       .then(customer => {
-        res.status(201).json({ id: customer.id, email: customer.email, firstName: customer.firstName, lastName: customer.lastName})
+        res.status(201).json({ id: customer.id, email: customer.email, firstName: customer.firstName, lastName: customer.lastName })
       })
       .catch(next)
   }
