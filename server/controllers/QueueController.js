@@ -5,15 +5,23 @@ const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
 class Controller {
   static getQueue(req, res, next) {
     const id = +req.params.outletId
+    const userId = +req.userData.id
     Outlet.findOne({ where: { id }, include: [Queue] })
       .then(data => {
-        console.log(data.dataValues.Queues.length, 'ASUP TI FETCH QUEUE')
+        console.log(data.dataValues.Queues, 'asup ti getqueue')
+        const arr = data.dataValues.Queues
+        const queueNumber = arr.findIndex(el => el.dataValues.CustomerId == userId)
+        // console.log(queueNumber)
+        const uniqueCode = verifyToken(arr[queueNumber].dataValues.uniqueCode)
+        const queueDetail = data.dataValues.Queues[queueNumber]
         data = {
           name: data.dataValues.name,
           imageUrl: data.dataValues.image_url,
-          totalQueue: data.dataValues.Queues.length
+          totalQueue: data.dataValues.Queues.length,
+          queueNumber: queueNumber + 1,
+          uniqueCode
         }
-        res.status(200).json({ data })
+        res.status(200).json({ data, queueDetail })
       })
       .catch(err => next(err))
   }
@@ -23,11 +31,21 @@ class Controller {
     const status = 'queue'
     const email = 'basilius@gmail.com' //req.userData.email
     const uniqueCode = uniqueCodeGenerator(email)
+    let statusToClient = ''
+    let uniqueCodeToClient = ''
     Queue.create({ OutletId, CustomerId, status, uniqueCode })
       .then(queue => {
-        queue.uniqueCode = verifyToken(queue.uniqueCode)
-        console.log(queue, 'ASUP TI ADD QUEUE')
-        res.status(201).json({ queue })
+        uniqueCodeToClient = verifyToken(queue.uniqueCode)
+        statusToClient = queue.status
+        return Outlet.findOne({ where: { id: OutletId }, include: [Queue] })
+      })
+      .then(data => {
+        data = {
+          status: statusToClient,
+          uniqueCode: uniqueCodeToClient,
+          totalQueue: data.dataValues.Queues.length
+        }
+        res.status(200).json({ data })
       })
       .catch(err => next(err))
   }
@@ -35,7 +53,6 @@ class Controller {
     const { status, uniqueCode, OutletId } = req.body
     const cashierOutletId = req.userData.OutletId
     const { id } = req.params
-    console.log(status, uniqueCode, OutletId, cashierOutletId, id, 'asup ti update queue')
     if (cashierOutletId == OutletId) {
       Queue.findOne({ where: { id } })
         .then(data => {
