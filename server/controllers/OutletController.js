@@ -12,7 +12,11 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
+<<<<<<< HEAD
         if(!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
+=======
+        if (!data) throw { name: 'OutletNotFound', message: 'Not Found' }
+>>>>>>> development
         res.status(200).json({ data })
       })
       .catch(next)
