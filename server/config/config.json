@@ -1,14 +1,18 @@
 {
   "development": {
     "username": "postgres",
-    "password": "emeralda22",
+<<<<<<< HEAD
+    "password": "postgres",
+=======
+    "password": "h0meaway",
+>>>>>>> development
     "database": "final-project",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
-    "password": "h0meaway",
+    "password": "postgres",
     "database": "final-project",
     "host": "localhost",
     "dialect": "postgres"

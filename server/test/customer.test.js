@@ -14,29 +14,29 @@ afterAll((done) => {
 });
 
 describe("Register Customer / Succes Case", () => {
-	test("Should return an object with key: id, firstName, lastName, email", (done) => {
-		request(app)
-			.post("/customers/register")
-			.send({
-				email: "tes@gmail.com",
-				password: "tes123",
-				firstName: "tes depan",
-				lastName: "tes belakang",
-			})
-			.end((err, res) => {
-				if (err) throw err;
-				else {
-					id = res.body.id;
-					expect(res.status).toBe(201);
-					expect(res.body).toHaveProperty("id", expect.any(Number));
-					expect(res.body).toHaveProperty("email");
-					expect(res.body).toHaveProperty("firstName");
-					expect(res.body).toHaveProperty("lastName");
-					done();
-				}
-			});
-	});
-});
+    test("Should return an object with key: id, firstName, lastName, email", (done) => {
+        request(app)
+            .post('/customers/register')
+            .send({
+                email: "tes@gmail.com",
+                password: "tes123",
+                firstName: "nama depan",
+                lastName: "nama belakang"
+            })
+            .end((err, res) => {
+                if (err) throw err
+                else {
+                    id = res.body.id
+                    expect(res.status).toBe(201)
+                    expect(res.body).toHaveProperty('id', expect.any(Number))
+                    expect(res.body).toHaveProperty('email')
+                    expect(res.body).toHaveProperty('firstName')
+                    expect(res.body).toHaveProperty('lastName')
+                    done()
+                }
+            })
+    })
+})
 
 describe("Register Customer / Error Case", () => {
 	test("Failed because empty field", (done) => {
@@ -103,8 +103,8 @@ describe("Login Customer / Success Case", () => {
 		request(app)
 			.post("/customers/login")
 			.send({
-				email: "customer@gmail.com",
-				password: "customer",
+				email: "basilius@gmail.com",
+				password: "basilius123",
 			})
 			.end(function (err, res) {
 				if (err) throw err;

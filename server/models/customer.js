@@ -18,16 +18,24 @@ module.exports = (sequelize, DataTypes) => {
   Customer.init({
     firstName: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
+          msg: 'firstname is required'
+        },
+        notNull: {
           msg: 'firstname is required'
         }
       }
     },
     lastName: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
+          msg: 'lastname is required'
+        },
+        notNull: {
           msg: 'lastname is required'
         }
       }
@@ -35,12 +43,16 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       unique: true,
+      allowNull: false,
       validate: {
         notEmpty: {
           msg: 'email is required'
         },
         isEmail: {
           msg: 'invalid email format'
+        },
+        notNull: {
+          msg: 'email is required'
         }
       }
     },
@@ -54,14 +66,14 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'password can not null'
         }
-      }  
+      }
     },
     role: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: (customer, opt) => {
         customer.password = hashPass(customer.password),
-        customer.role = 'customer'
+          customer.role = 'customer'
       }
     },
     sequelize,

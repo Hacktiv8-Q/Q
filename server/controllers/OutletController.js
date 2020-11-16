@@ -4,7 +4,7 @@ class Controller {
   static outlets(req, res, next) {
     Outlet.findAll()
       .then(data => {
-        res.status(202).json({ data })
+        res.status(200).json({ data })
       })
       .catch(next)
   }
@@ -12,7 +12,7 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { name: 'OutletNotFound', message: 'Not Found' }
+        if(!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
         res.status(200).json({ data })
       })
       .catch(next)
@@ -23,7 +23,7 @@ class Controller {
     const obj = { name, description, category, image_url, AdminId }
     Outlet.create(obj)
       .then(data => {
-        res.status(201).json({ message: 'Outlet successfully added' })
+        res.status(201).json({ message: 'Outlet successfully added', data })
       })
       .catch(next)
   }
@@ -36,8 +36,8 @@ class Controller {
         return Outlet.findOne({ where: { id } })
       })
       .then(data => {
-        if (!data) throw { name: 'OutletNotFound', message: 'Not Found' }
-        res.status(201).json({ message: 'Outlet successfully edited'})
+        if (!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
+        res.status(200).json({ message: 'Outlet successfully edited'})
       })
       .catch(next)
   }
@@ -45,7 +45,7 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { name: 'OutletNotFound', message: 'Not Found' }
+        if(!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
         Outlet.destroy({ where: { id } })
         res.status(200).json({ message: 'Outlet successfully deleted', data })
       })

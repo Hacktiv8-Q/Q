@@ -1,6 +1,33 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { login } from "../../store/action/customer"
 
 export default function Login() {
+  const [inputLogin, setInputLogin] = useState({ email: "", password: "" })
+  const { token } = useSelector(state => state.customer)
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  useEffect(() => {
+    localStorage.setItem('tokenCustomer', token)
+    if(localStorage.tokenCustomer){
+      history.push("/status")
+    }
+  },[token])
+
+  const handleInputLogin = (e) => {
+    e.preventDefault()
+    setInputLogin({
+      ...inputLogin, [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmitLogin = (e) => {
+    e.preventDefault()
+    dispatch(login(inputLogin))
+  }
+
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-6">
@@ -9,7 +36,7 @@ export default function Login() {
           <div className="field">
             <label className="label">Email</label>
             <div className="control has-icons-left has-icons-right">
-              <input className="input" type="email" placeholder="Email input" />
+              <input name="email" value={inputLogin.email} onChange={(e) => handleInputLogin(e)} className="input" type="email" placeholder="Email input" />
               <span className="icon is-small is-left">
                 <i className="fas fa-envelope" />
               </span>
@@ -18,7 +45,7 @@ export default function Login() {
           <div className="field">
             <label className="label">Password</label>
             <div className="control has-icons-left has-icons-right">
-              <input className="input" type="password" placeholder="Password" />
+              <input name="password" value={inputLogin.password} onChange={(e) => handleInputLogin(e)} className="input" type="password" placeholder="Password" />
               <span className="icon is-small is-left">
                 <i className="fas fa-lock" />
               </span>
@@ -26,7 +53,7 @@ export default function Login() {
           </div>
           <div className="field">
             <p className="control">
-              <button className="button is-primary is-fullwidth">
+              <button onClick={(e) => handleSubmitLogin(e)} className="button is-primary is-fullwidth">
                 Login
               </button>
             </p>

@@ -20,9 +20,9 @@ export default function ChooseRole() {
                 <b>Merchant</b>
               </button>
               <p className="subtitle is-6 has-text-centered mb-2">OR</p>
-              <button className="button is-primary is-outlined is-medium is-fullwidth">
+              <Link to="/login" className="button is-primary is-outlined is-medium is-fullwidth">
                 <b>Customer</b>
-              </button>
+              </Link>
               <br />
               <Link
                 to="/notification"
