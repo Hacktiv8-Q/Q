@@ -22,7 +22,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     CustomerId: DataTypes.INTEGER,
-    OutletId: DataTypes.INTEGER,
+    OutletId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'OutletId is required'
+        },
+        notNull: {
+          msg: 'OutletId is required'
+        }
+      }
+    },
     status: DataTypes.STRING,
     uniqueCode: DataTypes.STRING
   }, {
