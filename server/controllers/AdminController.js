@@ -17,7 +17,6 @@ class Controller {
       .catch(next);
   }
   static loginAdmin(req, res, next) {
-    console.log(req.body, "asup ti loginadmin");
     const { email, password } = req.body;
     Admin.findOne({ where: { email } })
       .then((data) => {
@@ -52,7 +51,6 @@ class Controller {
       .catch(next)
   }
   static loginCashier(req, res, next) {
-    console.log(req.body, "asup ti loginadmin");
     const { email, password } = req.body;
     Cashier.findOne({ where: { email } })
       .then((data) => {

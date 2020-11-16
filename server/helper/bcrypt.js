@@ -6,7 +6,6 @@ function hashPass(password) {
 }
 
 function comparePass(password, hashedpassword) {
-	console.log(hashPass(password), hashedpassword, 'asup ti bcrypt');
 	return bcrypt.compareSync(password, hashedpassword);
 }
 

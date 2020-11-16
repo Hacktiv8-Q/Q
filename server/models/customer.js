@@ -54,14 +54,14 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {
           msg: 'password can not null'
         }
-      }  
+      }
     },
     role: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: (customer, opt) => {
         customer.password = hashPass(customer.password),
-        customer.role = 'customer'
+          customer.role = 'customer'
       }
     },
     sequelize,
