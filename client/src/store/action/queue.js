@@ -22,7 +22,6 @@ export const addQueue = (OutletId) => dispatch => {
     headers: {token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYXNpbGl1c0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2MDU0NTU1MTh9.pqtIU31pNfRKzXBlgJQ6QXl2K7Q6OdEN5NPUnFXcsK0"}
   })
     .then(({ data }) => {
-      console.log(data, 'ini data add queue')
       dispatch({
         type: ADD_QUEUE,
         payload: data
