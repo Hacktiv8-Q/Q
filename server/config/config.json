@@ -1,11 +1,7 @@
 {
   "development": {
     "username": "postgres",
-<<<<<<< HEAD
     "password": "postgres",
-=======
-    "password": "h0meaway",
->>>>>>> development
     "database": "final-project",
     "host": "localhost",
     "dialect": "postgres"

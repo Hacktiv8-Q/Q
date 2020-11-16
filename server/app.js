@@ -15,6 +15,4 @@ app.use(express.json());
 app.use(router);
 app.use(errHandler);
 
-app.listen(port, () => console.log(`app is runnin on ${port}`));
-
 module.exports = app;
