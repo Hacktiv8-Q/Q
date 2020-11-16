@@ -15,10 +15,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Cashier.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+    firstName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "firstname is required",
+        },
+      },
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "lastname is required",
+        },
+      },
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        notEmpty: {
+          msg: "email is required",
+        },
+        isEmail: {
+          msg: "invalid email format",
+        },
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "password is required",
+        },
+        notNull: {
+          msg: "password can not null",
+        },
+      },
+    },
     role: DataTypes.STRING,
     OutletId: DataTypes.INTEGER
   }, {
