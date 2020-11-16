@@ -23,6 +23,13 @@ export default function ChooseRole() {
               <Link to="/login" className="button is-primary is-outlined is-medium is-fullwidth">
                 <b>Customer</b>
               </Link>
+              <br />
+              <Link
+                to="/notification"
+                className="button is-danger is-outlined is-medium is-fullwidth"
+              >
+                <b>Go to Notification</b>
+              </Link>
             </div>
           </div>
         </div>
