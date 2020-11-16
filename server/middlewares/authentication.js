@@ -10,7 +10,6 @@ async function adminAuthentication(req, res, next) {
     });
     if (!admin) throw { msg: "authentication failed", statusCode: 401 };
     req.userData = decoded;
-    console.log(decoded, "ini admin auth");
     next();
   } catch (err) {
     next(err);
@@ -25,7 +24,6 @@ async function cashierAuthentication(req, res, next) {
     })
     if (!cashier) throw { msg: "authentication failed", statusCode: 401 };
     req.userData = decoded;
-    console.log(decoded, "ini cashier auth");
     next();
   } catch (err) {
     next(err);
