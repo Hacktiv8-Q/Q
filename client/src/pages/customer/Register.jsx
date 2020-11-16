@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addRegister } from ".../store/actions/register";
+import { addRegister } from "../../store/action/register";
 import { useHistory } from "react-router-dom";
 
 const Register = () => {
@@ -45,6 +45,7 @@ const Register = () => {
 						<label className="label">First Name</label>
 						<div className="control">
 							<input
+								name="firstName"
 								onChange={(e) => handleInput(e)}
 								className="input"
 								type="text"
@@ -56,6 +57,7 @@ const Register = () => {
 						<label className="label">Last Name</label>
 						<div className="control">
 							<input
+								name="lastName"
 								onChange={(e) => handleInput(e)}
 								className="input"
 								type="text"
@@ -67,6 +69,7 @@ const Register = () => {
 						<label className="label">Email</label>
 						<div className="control">
 							<input
+								name="email"
 								onChange={(e) => handleInput(e)}
 								className="input"
 								type="email"
@@ -78,6 +81,7 @@ const Register = () => {
 						<label className="label">Password</label>
 						<div className="control">
 							<input
+								name="password"
 								onChange={(e) => handleInput(e)}
 								className="input"
 								type="password"
@@ -88,7 +92,7 @@ const Register = () => {
 					<div className="field">
 						<p className="control">
 							<button
-								onSubmit={(e) => handleSubmit(e)}
+								onClick={(e) => handleSubmit(e)}
 								className="button is-primary is-fullwidth"
 							>
 								Register
