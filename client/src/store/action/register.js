@@ -9,7 +9,7 @@ export function register(customer) {
 
 export const addRegister = (customer) => {
 	return (dispatch) => {
-		fetch("http://localhost:3001/customers/register", {
+		fetch("http://localhost:3000/customers/register", {
 			method: "post",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(customer),
