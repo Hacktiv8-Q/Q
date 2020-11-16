@@ -5,7 +5,7 @@ const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
 class Controller {
   static getQueue(req, res, next) {
     const id = +req.params.outletId
-    Outlet.findOne({where: {id}, include:[Queue]})
+    Outlet.findOne({ where: { id }, include: [Queue] })
       .then(data => {
         console.log(data.dataValues.Queues.length, 'ASUP TI FETCH QUEUE')
         data = {
@@ -32,24 +32,30 @@ class Controller {
       .catch(err => next(err))
   }
   static updateQueue(req, res, next) {
-    const { status, uniqueCode } = req.body
+    const { status, uniqueCode, OutletId } = req.body
+    const cashierOutletId = req.userData.OutletId
     const { id } = req.params
-    Queue.findOne({where: {id}})
-      .then(data => {
-        if(!data) throw { msg: "Id Not Found" , statusCode: 404 }
-        if(verifyToken(data.uniqueCode) !== uniqueCode) throw { msg: 'Unique Code did not match', statusCode: 401}
-        return data.update({ status }, { where: { id } })
-      })
-      .then(data => {
-        res.status(200).json({ status: `success update queue id ${id}` })
-      })
-      .catch(err => next(err))
+    console.log(status, uniqueCode, OutletId, cashierOutletId, id, 'asup ti update queue')
+    if (cashierOutletId == OutletId) {
+      Queue.findOne({ where: { id } })
+        .then(data => {
+          if (!data) throw { msg: "Id Not Found", statusCode: 404 }
+          if (verifyToken(data.uniqueCode) !== uniqueCode) throw { msg: 'Unique Code did not match', statusCode: 401 }
+          return data.update({ status }, { where: { id } })
+        })
+        .then(data => {
+          res.status(200).json({ status: `success update queue id ${id}` })
+        })
+        .catch(err => next(err))
+    } else {
+      throw { msg: "not working here", statusCode: 400 }
+    }
   }
   static deleteQueue(req, res, next) {
     const { id } = req.params
-    Queue.findOne({where: {id}})
+    Queue.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { msg: "Id Not Found" , statusCode: 404 }
+        if (!data) throw { msg: "Id Not Found", statusCode: 404 }
         return data.destroy({ where: { id } })
       })
       .then(data => {
