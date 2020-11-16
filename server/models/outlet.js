@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			Outlet.belongsTo(models.Admin);
 			Outlet.belongsToMany(models.Customer, { through: models.Queue });
 			Outlet.hasMany(models.Queue);
+			Outlet.hasMany(models.Cashier)
 		}
 	}
 	Outlet.init(
