@@ -1,4 +1,7 @@
+import React, {useState} from"react"
 import { Link } from "react-router-dom";
+import {useDispatch} from "react-redux"
+import {register} from ".../store/actions/register"
 
 export default function Login() {
   return (

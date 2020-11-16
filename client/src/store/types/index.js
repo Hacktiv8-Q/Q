@@ -1,1 +1,2 @@
-export const FETCH_QUEUE = 'FETCH_QUEUE'
+export const FETCH_QUEUE = "FETCH_QUEUE";
+export const REGISTER_CUSTOMER = "REGISTER_CUSTOMER";
