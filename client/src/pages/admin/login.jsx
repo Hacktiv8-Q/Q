@@ -12,7 +12,7 @@ export default function Login() {
 	useEffect(() => {
 		localStorage.setItem("tokenAdmin", token);
 		if (localStorage.tokenAdmin) {
-			history.push("/status");
+			history.push("/admin/outlet-list");
 		}
 	}, [token]);
 
@@ -32,7 +32,7 @@ export default function Login() {
 	return (
 		<div className="columns is-centered is-vcentered">
 			<div className="column is-6">
-				<h1 className="title has-text-centered">Login</h1>
+				<h1 className="title has-text-centered">Admin Login</h1>
 				<div className="box">
 					<div className="field">
 						<label className="label">Email</label>

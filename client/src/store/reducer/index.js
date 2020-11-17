@@ -6,4 +6,5 @@ import admin from "./adminReducer";
 export default combineReducers({
 	queue,
 	customer,
+	admin,
 });

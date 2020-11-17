@@ -18,11 +18,12 @@ import {
 	AddOutlet,
 	Home,
 	QRCode,
+	Login as LoginAdmin,
 	QueueHistory,
 	QueueList,
-	RegisterAdmin,
 	OutletList as OutletListAdmin,
 } from "./pages/admin";
+import RegisterAdmin from "./pages/admin/RegisterAdmin";
 import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -99,7 +100,7 @@ export default function App() {
 							<QueueHistory />
 						</Route>
 						<Route path="/admin/login">
-							<LoginCustomer />
+							<LoginAdmin />
 						</Route>
 						<Route path="/admin/register">
 							<RegisterAdmin />

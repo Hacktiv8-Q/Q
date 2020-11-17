@@ -32,7 +32,7 @@ const RegisterAdmin = () => {
 			setError("password is required");
 		} else {
 			dispatch(registerAdmin(admin));
-			history.push("/");
+			history.push("/admin/login");
 		}
 	};
 
