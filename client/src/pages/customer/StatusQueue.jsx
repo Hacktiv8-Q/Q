@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { fetchQueueDetail } from "store/action/queue"
 
 export default function StatusQueue(props) {
@@ -31,6 +32,14 @@ export default function StatusQueue(props) {
         <p className="subtitle is-5 has-text-centered">
           We’ll notify you when the queue is near
         </p>
+        <div className="is-flex is-justify-content-center">
+          <Link
+            to="/qrcode-detail"
+            className="button is-primary is-light"
+          >
+            Show Verification QR Code
+          </Link>
+        </div>
       </div>
     </div>
   )
