@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 
 export default function StatusQueue() {
   const { newQueue } = useSelector(state => state.queue)
-
+  console.log(newQueue)
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-6">
@@ -16,9 +17,15 @@ export default function StatusQueue() {
             </h1>
           </div>
         </div>
-        <p className="subtitle is-5 has-text-centered">
-          You’ve added to the queue number 5
-        </p>
+        { newQueue.data && <p className="subtitle is-5 has-text-centered">
+          You’ve added to the queue number {newQueue.data.totalQueue}
+        </p>}
+        <Link
+          to="/status"
+          className="button is-primary is-medium is-fullwidth has-text-weight-semibold"
+        >
+          OK
+        </Link>
       </div>
     </div>
   )

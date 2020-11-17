@@ -3,6 +3,14 @@ const { generateToken, verifyToken } = require('../helper/jwt')
 const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
 
 class Controller {
+  static getQueueByCustomer(req, res, next) {
+    const CustomerId = +req.userData.id
+    Queue.findAll({ where: { CustomerId } })
+      .then(data => {
+        res.status(200).json({ data })
+      })
+      .catch(err => next(err))
+  }
   static getQueue(req, res, next) {
     const id = +req.params.outletId
     const userId = +req.userData.id
@@ -27,9 +35,9 @@ class Controller {
   }
   static addQueue(req, res, next) {
     const OutletId = +req.params.outletId
-    const CustomerId = 1 //+req.userData.id
+    const CustomerId = +req.userData.id
     const status = 'queue'
-    const email = 'basilius@gmail.com' //req.userData.email
+    const email = req.userData.email
     const uniqueCode = uniqueCodeGenerator(email)
     let statusToClient = ''
     let uniqueCodeToClient = ''

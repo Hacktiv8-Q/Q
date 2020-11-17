@@ -11,7 +11,7 @@ export default function Categories() {
         </h1>
         <div className="content">
           <div className="panel list-group">
-            <Link to="/outlet-list" className="panel-block list-group-item" href="!#">
+            <Link to={{pathname:"/outlet-list", state: {category: "kesehatan"}}} className="panel-block list-group-item">
               Kesehatan
             </Link>
             <a className="panel-block list-group-item" href="!#">
