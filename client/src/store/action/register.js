@@ -36,3 +36,18 @@ export const registerAdmin = (admin) => {
 			.catch((err) => console.log(err));
 	};
 };
+
+export const registerCashier = (admin) => {
+	return (dispatch) => {
+		fetch("http://localhost:3000/admins/register-cashier", {
+			method: "post",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(admin),
+		})
+			.then((resp) => resp.json())
+			.then((admin) => {
+				dispatch(register(admin));
+			})
+			.catch((err) => console.log(err));
+	};
+};

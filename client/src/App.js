@@ -24,6 +24,7 @@ import {
 	QueueHistory,
 	QueueList,
 	OutletList as OutletListAdmin,
+	RegisterCashier,
 } from "./pages/admin";
 import RegisterAdmin from "./pages/admin/RegisterAdmin";
 import "./App.css";
@@ -112,6 +113,9 @@ export default function App() {
 						</Route>
 						<Route path="/admin/register">
 							<RegisterAdmin />
+						</Route>
+						<Route path="/admin/register-cashier">
+							<RegisterCashier />
 						</Route>
 					</Switch>
 				</div>

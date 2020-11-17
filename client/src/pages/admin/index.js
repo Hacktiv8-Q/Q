@@ -6,3 +6,4 @@ export { default as AddOutlet } from "./AddOutlet";
 export { default as OutletList } from "./OutletList";
 export { default as Login } from "./Login";
 export { default as RegisterAdmin } from "./RegisterAdmin";
+export { default as RegisterCashier } from "./cashier/register";
