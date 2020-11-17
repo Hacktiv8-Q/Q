@@ -117,6 +117,9 @@ export default function App() {
 						<Route path="/admin/register-cashier">
 							<RegisterCashier />
 						</Route>
+						<Route path="/admin/login-cashier">
+							<RegisterCashier />
+						</Route>
 					</Switch>
 				</div>
 			</section>
