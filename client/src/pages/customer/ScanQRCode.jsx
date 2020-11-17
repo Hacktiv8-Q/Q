@@ -1,5 +1,5 @@
 import BackButton from 'components/BackButton'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import QrReader from 'react-qr-reader'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -24,6 +24,18 @@ export default function QueueStatus() {
     console.error(err)
   }
 
+  const fakeRequest = data => {
+    return new Promise(res => {
+      setTimeout(() => {
+        res(data)
+      }, 2000)
+    })
+  }
+
+  const sendQRCode = () => {
+    setResult('HelloWorlHashedWithBcrypt')
+  }
+
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-5">
@@ -37,6 +49,7 @@ export default function QueueStatus() {
           />
         }
         <p className="subtitle has-text-centered mt-3">{result}</p>
+        <button onClick={sendQRCode} className="button is-link is-light">Fake Request</button>
       </div>
     </div>
   )
