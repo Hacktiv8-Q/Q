@@ -1,94 +1,112 @@
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
 } from "react-router-dom";
 import {
-  Status,
-  ScanQRCode,
-  StatusQueue,
-  StatusSuccess,
-  Categories,
-  OutletList as OutletListCustomer,
-  Login as LoginCustomer,
-  Register as RegisterCustomer
+	Status,
+	ScanQRCode,
+	StatusQueue,
+	StatusSuccess,
+	Categories,
+	OutletList as OutletListCustomer,
+	Login as LoginCustomer,
+	Register as RegisterCustomer,
 } from "./pages/customer";
 import {
-  AddOutlet,
-  Home,
-  QRCode,
-  QueueHistory,
-  QueueList,
-  OutletList as OutletListAdmin
+	AddOutlet,
+	Home,
+	QRCode,
+	QueueHistory,
+	QueueList,
+	RegisterAdmin,
+	OutletList as OutletListAdmin,
 } from "./pages/admin";
-import './App.css';
+import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ChooseRole from "pages/ChooseRole";
 
-const PrivateRouteCustomer = ({component: Component, ...rest}) => {
-  return (
-    <Route {...rest} render={() => {
-      if(localStorage.tokenCustomer){
-        return <Component />
-      }else {
-        return <Redirect to="/login" />
-      }
-    }} 
-    />
-  )
-}
+const PrivateRouteCustomer = ({ component: Component, ...rest }) => {
+	return (
+		<Route
+			{...rest}
+			render={() => {
+				if (localStorage.tokenCustomer) {
+					return <Component />;
+				} else {
+					return <Redirect to="/login" />;
+				}
+			}}
+		/>
+	);
+};
 
 export default function App() {
-  return (
-    <Router>
-      <section className="section">
-        <div className="container">
-          <Switch>
-            {/* General */}
-            <Route path="/" exact>
-              <ChooseRole />
-            </Route>
+	return (
+		<Router>
+			<section className="section">
+				<div className="container">
+					<Switch>
+						{/* General */}
+						<Route path="/" exact>
+							<ChooseRole />
+						</Route>
 
-            {/* Customer Route */}
-            <PrivateRouteCustomer path="/status" component={Status} exact />
-            <PrivateRouteCustomer path="/status-queue" component={StatusQueue} />
-            <PrivateRouteCustomer path="/status-success" component={StatusSuccess} />
-            <PrivateRouteCustomer path="/categories" component={Categories} />
-            <PrivateRouteCustomer path="/scan" component={ScanQRCode} />
-            <PrivateRouteCustomer path="/outlet-list" component={OutletListCustomer} />
-            <Route path="/login">
-              <LoginCustomer />
-            </Route>
-            <Route path="/register">
-              <RegisterCustomer />
-            </Route>
+						{/* Customer Route */}
+						<PrivateRouteCustomer path="/status" component={Status} exact />
+						<PrivateRouteCustomer
+							path="/status-queue"
+							component={StatusQueue}
+						/>
+						<PrivateRouteCustomer
+							path="/status-success"
+							component={StatusSuccess}
+						/>
+						<PrivateRouteCustomer path="/categories" component={Categories} />
+						<PrivateRouteCustomer path="/scan" component={ScanQRCode} />
+						<PrivateRouteCustomer
+							path="/outlet-list"
+							component={OutletListCustomer}
+						/>
+						<Route path="/login">
+							<LoginCustomer />
+						</Route>
+						<Route path="/register">
+							<RegisterCustomer />
+						</Route>
 
-            {/* Admin Route */}
-            {/* Home for admin Cashier */}
-            <Route path="/admin/" exact>
-              <Home />
-            </Route>
-            {/* Home for admin Owner */}
-            <Route path="/admin/outlet-list">
-              <OutletListAdmin />
-            </Route>
-            <Route path="/admin/outlet-add">
-              <AddOutlet />
-            </Route>
-            <Route path="/admin/qrcode">
-              <QRCode />
-            </Route>
-            <Route path="/admin/queue-list">
-              <QueueList />
-            </Route>
-            <Route path="/admin/queue-history">
-              <QueueHistory />
-            </Route>
-          </Switch>
-        </div>
-      </section>
-    </Router>
-  );
+						{/* Admin Route */}
+						{/* Home for admin Cashier */}
+						<Route path="/admin/" exact>
+							<Home />
+						</Route>
+						{/* Home for admin Owner */}
+						<Route path="/admin/outlet-list">
+							<OutletListAdmin />
+						</Route>
+						<Route path="/admin/outlet-add">
+							<AddOutlet />
+						</Route>
+						<Route path="/admin/qrcode">
+							<QRCode />
+						</Route>
+						<Route path="/admin/queue-list">
+							<QueueList />
+						</Route>
+						<Route path="/admin/queue-history">
+							<QueueHistory />
+						</Route>
+						<Route path="/admin/login">
+							<LoginCustomer />
+						</Route>
+						<Route path="/admin/register">
+							<RegisterAdmin />
+						</Route>
+					</Switch>
+				</div>
+			</section>
+		</Router>
+	);
 }

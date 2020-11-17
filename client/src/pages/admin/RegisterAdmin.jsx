@@ -102,7 +102,7 @@ const RegisterAdmin = () => {
 					<div className="field">
 						<span>Already have an account? Login </span>
 						<Link
-							to="/login"
+							to="/admin/login"
 							className="button is-text p-0"
 							style={{ alignItems: "baseline" }}
 						>
@@ -115,4 +115,4 @@ const RegisterAdmin = () => {
 	);
 };
 
-export default Register;
+export default RegisterAdmin;
