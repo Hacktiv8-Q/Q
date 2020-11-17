@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 
 admin.initializeApp({
-  credential: admin.credential.cert(process.env.FIREBASE_CREDENTIALS),
+  credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_CREDENTIALS)),
   databaseURL: 'https://q-wapp.firebaseio.com'
 });
 
