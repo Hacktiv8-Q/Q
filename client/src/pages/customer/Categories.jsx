@@ -14,16 +14,16 @@ export default function Categories() {
             <Link to={{pathname:"/outlet-list", state: {category: "kesehatan"}}} className="panel-block list-group-item">
               Kesehatan
             </Link>
-            <a className="panel-block list-group-item" href="!#">
-              Tempat Makan
-            </a>
-            <a className="panel-block list-group-item" href="!#">
-              Otomotif
-            </a>
-            <a className="panel-block list-group-item" href="!#">
-              Others
-            </a>
-          </div>
+            <Link to={{pathname:"/outlet-list", state: {category: "tempat makan"}}} className="panel-block list-group-item">
+            Tempat Makan
+            </Link>
+            <Link to={{pathname:"/outlet-list", state: {category: "otomotif"}}} className="panel-block list-group-item">
+            Otomotif
+            </Link>
+            <Link to={{pathname:"/outlet-list", state: {category: "others"}}} className="panel-block list-group-item">
+            Others
+            </Link>
+           </div>
         </div>
       </div>
     </div>

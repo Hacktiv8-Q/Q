@@ -1,17 +1,26 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { logout } from "store/action/customer";
 import { fetchQueue } from "../../store/action/queue"
 import StatusQueue from "./StatusQueue"
 
 export default function Status() {
   const { queue } = useSelector(state => state.queue)
   const dispatch = useDispatch()
+  const history = useHistory()
   console.log(queue, 'ini queue')
 
   useEffect(() => {
     dispatch(fetchQueue())
   }, [])
+
+  const handleLogout = () => {
+    localStorage.clear()
+    dispatch(logout())
+    history.push("/")
+  }
+
 
   return (
     <div className="columns is-centered is-vcentered">
@@ -35,14 +44,16 @@ export default function Status() {
                 </Link>
                 <Link
                   to="/scan"
-                  className="button is-primary is-medium is-fullwidth has-text-weight-semibold"
+                  className="button is-primary is-medium is-fullwidth has-text-weight-semibold mb-5"
                 >
                   Scan QRCode
                 </Link>
               </div>
             )
         }
-
+        <div class="buttons has-addons is-centered">
+          <button onClick={handleLogout} className="button is-danger is-medium is-rounded has-text-weight-semibold">Logout</button>
+        </div>
       </div>
     </div>
   )

@@ -80,19 +80,19 @@ export default function OutletList() {
     history.push("/status-success")
   }
 
-
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-7-desktop is-10-tablet">
         <BackButton />
         <h1 className="title">
-          List of {category}
+          List of Dinner Place
         </h1>
         <Slider {...settings}>
-          <div>
-            {
-              outletByCategory && outletByCategory.map(outlet => {
-                return (
+
+          {
+            outletByCategory && outletByCategory.map(outlet => {
+              return (
+                <div>
                   <div key={outlet.id} className="card">
                     <div className="card-image">
                       <figure className="image is-4by3">
@@ -107,10 +107,11 @@ export default function OutletList() {
                       </div>
                     </div>
                   </div>
-                )
-              })
-            }
-          </div>
+                </div>
+              )
+            })
+          }
+
         </Slider>
       </div>
     </div>

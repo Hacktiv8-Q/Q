@@ -1,5 +1,5 @@
 import axios from 'config/axios'
-import { LOGIN } from 'store/types'
+import { LOGIN, LOGOUT } from 'store/types'
 
 export const login = (dataLogin) => dispatch => {
   axios({
@@ -14,4 +14,11 @@ export const login = (dataLogin) => dispatch => {
       })
     })
     .catch(console.log)
+}
+
+export const logout = () => {
+  return {
+    type: LOGOUT,
+    payload: ""
+  }
 }
