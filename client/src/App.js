@@ -13,6 +13,8 @@ import {
 	OutletList as OutletListCustomer,
 	Login as LoginCustomer,
 	Register as RegisterCustomer,
+	QRCodeDetail,
+	Notification,
 } from "./pages/customer";
 import {
 	AddOutlet,
@@ -76,6 +78,12 @@ export default function App() {
 						</Route>
 						<Route path="/register">
 							<RegisterCustomer />
+						</Route>
+						<Route path="/qrcode-detail">
+							<QRCodeDetail />
+						</Route>
+						<Route path="/notification">
+							<Notification />
 						</Route>
 
 						{/* Admin Route */}
