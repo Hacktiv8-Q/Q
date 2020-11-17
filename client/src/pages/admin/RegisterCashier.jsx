@@ -1,118 +1,82 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addRegister } from "../../store/action/register";
-import { useHistory } from "react-router-dom";
+import BackButton from "components/BackButton";
+import { useForm } from 'react-hook-form'
+import { useHistory, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { registerCashier } from "store/action/registerCashier";
 
-const Register = () => {
-	const [customer, setCustomer] = useState({});
-	const [error, setError] = useState("");
+export default function RegisterCashier() {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const { register, handleSubmit, errors } = useForm()
+  const { outletId } = useParams()
 
-	const dispatch = useDispatch();
-	let history = useHistory();
+  async function submitForm(data) {
+    try {
+      const body = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        OutletId: outletId
+      }
+      console.log(body, 'asup ti submitForm')
+      await dispatch(registerCashier(body))
+      history.push('/admin/outlet-list')
+    }
+    catch (err) {
+    console.log(err)
+  }
+}
 
-	const handleInput = (e) => {
-		e.preventDefault();
-		setCustomer({
-			...customer,
-			[e.target.name]: e.target.value,
-		});
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		//{ firstName, lastName, email, password }
-		if (!customer.firstName) {
-			setError("first name is required");
-		} else if (!customer.lastName) {
-			setError("Last name is required");
-		} else if (!customer.email) {
-			setError("email is required");
-		} else if (!customer.password) {
-			setError("password is required");
-		} else {
-			dispatch(addRegister(customer));
-			history.push("/");
-		}
-	};
-
-	return (
-		<div className="columns is-centered is-vcentered">
-			<div className="column is-6">
-				<h1 className="title has-text-centered">Register</h1>
-				<div className="box">
-					<div className="field">
-						<label className="label">First Name</label>
-						<div className="control">
-							<input
-								name="firstName"
-								onChange={(e) => handleInput(e)}
-								className="input"
-								type="text"
-								placeholder="First name input"
-							/>
-						</div>
-					</div>
-					<div className="field">
-						<label className="label">Last Name</label>
-						<div className="control">
-							<input
-								name="lastName"
-								onChange={(e) => handleInput(e)}
-								className="input"
-								type="text"
-								placeholder="Last name input"
-							/>
-						</div>
-					</div>
-					<div className="field">
-						<label className="label">Email</label>
-						<div className="control">
-							<input
-								name="email"
-								onChange={(e) => handleInput(e)}
-								className="input"
-								type="email"
-								placeholder="Email input"
-							/>
-						</div>
-					</div>
-					<div className="field">
-						<label className="label">Password</label>
-						<div className="control">
-							<input
-								name="password"
-								onChange={(e) => handleInput(e)}
-								className="input"
-								type="password"
-								placeholder="Password"
-							/>
-						</div>
-					</div>
-					<div className="field">
-						<p className="control">
-							<button
-								onClick={(e) => handleSubmit(e)}
-								className="button is-primary is-fullwidth"
-							>
-								Register
-							</button>
-						</p>
-					</div>
-					<div className="field">
-						<span>Already have an account? Login </span>
-						<Link
-							to="/login"
-							className="button is-text p-0"
-							style={{ alignItems: "baseline" }}
-						>
-							here
-						</Link>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-};
-
-export default Register;
+return (
+  <div className="columns is-centered is-vcentered">
+    <div className="column is-6">
+      <BackButton />
+      <h1 className="title has-text-centered">Register Cashier</h1>
+      <form onSubmit={handleSubmit(submitForm)}>
+        <div className="box">
+          <div className="field">
+            <label className="label">First Name</label>
+            <div className="control">
+              <input name='firstName' className="input" type="text" placeholder="Enter First Name" ref={register({ required: 'Please input first name' })} />
+              {errors.firstName && <p style={{ color: 'red' }}>{errors.firstName.message}</p>}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Last Name</label>
+            <div className="control">
+              <input name='lastName' className="input" type="text" placeholder="Enter Last Name" ref={register({ required: 'Please input last name' })} />
+              {errors.lastName && <p style={{ color: 'red' }}>{errors.lastName.message}</p>}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Email</label>
+            <div className="control">
+              <input name='email' className="input" type="text" placeholder="Enter Email" ref={register({ required: 'Please input email' })} />
+              {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+              <input name='password' className="input" type="password" placeholder="Enter Password" ref={register({ required: 'Please input password' })} />
+              {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
+            </div>
+          </div>
+          <div className="field mt-5">
+            <div className="control">
+              <div className="columns">
+                <div className="column">
+                  <button type='submit' className="button is-primary is-fullwidth">
+                    <b>Submit</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+)
+}
