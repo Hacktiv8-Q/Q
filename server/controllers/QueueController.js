@@ -38,20 +38,24 @@ class Controller {
     const CustomerId = +req.userData.id
     const status = 'queue'
     const email = req.userData.email
+    const deviceToken = req.body.deviceToken
     const uniqueCode = uniqueCodeGenerator(email)
     let statusToClient = ''
     let uniqueCodeToClient = ''
-    Queue.create({ OutletId, CustomerId, status, uniqueCode })
+    let deviceTokenToClient = ''
+    Queue.create({ OutletId, CustomerId, status, uniqueCode, deviceToken })
       .then(queue => {
         uniqueCodeToClient = verifyToken(queue.uniqueCode)
         statusToClient = queue.status
+        deviceTokenToClient = queue.deviceToken
         return Outlet.findOne({ where: { id: OutletId }, include: [Queue] })
       })
       .then(data => {
         data = {
           status: statusToClient,
           uniqueCode: uniqueCodeToClient,
-          totalQueue: data.dataValues.Queues.length
+          totalQueue: data.dataValues.Queues.length,
+          deviceToken: deviceTokenToClient
         }
         res.status(200).json({ data })
       })
