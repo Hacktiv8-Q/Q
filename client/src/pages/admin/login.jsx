@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { login } from "../../store/action/customer";
+import { login } from "../../store/action/admin";
 
 export default function Login() {
 	const [inputLogin, setInputLogin] = useState({ email: "", password: "" });
-	const { token } = useSelector((state) => state.customer);
+	const { token } = useSelector((state) => state.admin);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {
-		localStorage.setItem("tokenCustomer", token);
-		if (localStorage.tokenCustomer) {
-			history.push("/status");
+		localStorage.setItem("tokenAdmin", token);
+		if (localStorage.tokenAdmin) {
+			history.push("/admin/outlet-list");
 		}
 	}, [token]);
 
@@ -32,7 +32,7 @@ export default function Login() {
 	return (
 		<div className="columns is-centered is-vcentered">
 			<div className="column is-6">
-				<h1 className="title has-text-centered">Customer Login</h1>
+				<h1 className="title has-text-centered">Admin Login</h1>
 				<div className="box">
 					<div className="field">
 						<label className="label">Email</label>
@@ -79,7 +79,7 @@ export default function Login() {
 					<div className="field">
 						<span>Don't have an account? Register </span>
 						<Link
-							to="/register"
+							to="/admin/register"
 							className="button is-text p-0"
 							style={{ alignItems: "baseline" }}
 						>
