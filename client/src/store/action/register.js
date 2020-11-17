@@ -21,3 +21,18 @@ export const addRegister = (customer) => {
 			.catch((err) => console.log(err));
 	};
 };
+
+export const registerAdmin = (admin) => {
+	return (dispatch) => {
+		fetch("http://localhost:3000/admins/register", {
+			method: "post",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(admin),
+		})
+			.then((resp) => resp.json())
+			.then((admin) => {
+				dispatch(register(admin));
+			})
+			.catch((err) => console.log(err));
+	};
+};
