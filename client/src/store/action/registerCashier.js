@@ -1,23 +1,18 @@
+import axios from 'config/axios'
 import { REGISTER_CASHIER } from '../types/index'
 
-export function registerCashier(customer) {
-  return {
-    type: REGISTER_CASHIER,
-    payload: customer
-  }
-}
-
-export const addRegisterCashier = (cashier) => {
-  return (dispatch) => {
-    fetch('http://localhost:3000/admins/register-cashier', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(cashier)
-    })
-      .then(resp => resp.json())
-      .then(cashier => {
-        dispatch(register(cashier))
+export const registerCashier = (payload) => (dispatch) => {
+  axios({
+    method: 'post',
+    url: 'http://localhost:3000/admins/register-cashier',
+    data: payload,
+    headers: { token: localStorage.getItem('tokenAdmin') }
+  })
+    .then(data => {
+      dispatch({
+        type: REGISTER_CASHIER,
+        payload: data
       })
-      .catch(err => console.log(err))
-  }
+    })
+    .catch(err => console.log(err))
 }

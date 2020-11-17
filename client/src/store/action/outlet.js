@@ -1,5 +1,5 @@
 import axios from "config/axios";
-import { ADD_OUTLET, FETCH_OUTLET_ADMIN } from "store/types";
+import { ADD_OUTLET, FETCH_OUTLET_ADMIN, FETCH_OUTLET_ADMIN_BY_ID } from "store/types";
 
 export const addOutlet = (payload) => (dispatch) => {
   axios({
@@ -29,6 +29,54 @@ export const fetchOutlet = () => (dispatch) => {
         type: FETCH_OUTLET_ADMIN,
         payload: data.Outlets
       })
+    })
+    .catch(err => console.log(err))
+}
+export const fetchOutletById = (payload) => (dispatch) => {
+  axios({
+    method: 'get',
+    url: `http://localhost:3000/outlets/${payload}`,
+    headers: { token: localStorage.getItem('tokenAdmin')}
+  })
+    .then(({ data }) => {
+      console.log(data.data, 'ASUP TI FETCHOUTLETBYID')
+      dispatch({
+        type: FETCH_OUTLET_ADMIN_BY_ID,
+        payload: data.data
+      })
+    })
+    .catch(err => console.log(err))
+}
+export const editOutlet = (payload) => (dispatch) => {
+  axios({
+    method: 'put',
+    url: `http://localhost:3000/outlets/${payload.id}`,
+    headers: { token: localStorage.getItem('tokenAdmin')},
+    data: {
+      name: payload.name,
+      description: payload.description,
+      category: payload.category,
+      image_url: payload.image_url
+    }
+  })
+    .then(({ data }) => {
+      console.log(data.data, 'ASUP TI FETCHOUTLETBYID')
+      dispatch({
+        type: FETCH_OUTLET_ADMIN_BY_ID,
+        payload: data.data
+      })
+      dispatch(fetchOutlet())
+    })
+    .catch(err => console.log(err))
+}
+export const deleteOutlet = (payload) => (dispatch) => {
+  axios({
+    method: 'delete',
+    url: `http://localhost:3000/outlets/${payload}`,
+    headers: { token: localStorage.getItem('tokenAdmin')}
+  })
+    .then(() => {
+      dispatch(fetchOutlet())
     })
     .catch(err => console.log(err))
 }

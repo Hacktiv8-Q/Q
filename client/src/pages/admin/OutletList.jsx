@@ -1,12 +1,11 @@
 import BackButton from "components/BackButton";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import OutletCard from 'components/OutletCard'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from "react";
 import { fetchOutlet } from "store/action/outlet";
 
 export default function OutletList() {
-  const history = useHistory()
   const { outlets } = useSelector(state => state.outlet)
   const dispatch = useDispatch()
 
@@ -23,6 +22,7 @@ export default function OutletList() {
 
   return (
     <div className="columns is-centered is-vcentered">
+      {outlets && outlets.length &&
       <div className="column is-6">
         <div className="is-flex is-justify-content-space-between">
           <BackButton />
@@ -49,6 +49,7 @@ export default function OutletList() {
           </div>
         </div>
       </div>
+      }
     </div>
   )
 }
