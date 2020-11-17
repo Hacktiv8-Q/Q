@@ -1,6 +1,7 @@
 // const fs = require('fs');
 // const path = require('path');
 const admin = require('firebase-admin');
+const firebaseKeys = require('./credentials/q-wapp-firebase-adminsdk-key.json')
 
 // Prod env
 // let firebaseKey = process.env.FIREBASE_CREDENTIALS
@@ -12,7 +13,7 @@ const admin = require('firebase-admin');
 // }
 
 admin.initializeApp({
-  credential: admin.credential.cert(process.env.FIREBASE_CREDENTIALS),
+  credential: admin.credential.cert(firebaseKeys),
   databaseURL: 'https://q-wapp.firebaseio.com'
 });
 
