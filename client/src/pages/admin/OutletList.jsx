@@ -35,19 +35,6 @@ export default function OutletList() {
         </div>
         <h1 className="title has-text-centered">Outlet List</h1>
         {list()}
-        <div className="content">
-          <div className="panel list-group">
-            <a className="panel-block list-group-item" href="!#">
-              Sido Mulyo Coffe
-            </a>
-            <a className="panel-block list-group-item" href="!#">
-              Soto Jaya
-            </a>
-            <a className="panel-block list-group-item" href="!#">
-              Dorayaki Kekinian
-            </a>
-          </div>
-        </div>
       </div>
       }
     </div>
