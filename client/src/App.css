@@ -65,3 +65,7 @@ body,
 .border-light {
   border: 1px solid hsl(0, 0%, 86%) !important;
 }
+
+canvas {
+  width: 100% !important;
+}

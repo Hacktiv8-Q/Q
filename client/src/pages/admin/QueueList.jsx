@@ -32,10 +32,10 @@ export default function QueueList() {
             </thead>
             <tbody className="list-group">
               {
-                queues.length > 0 && queues.map(queue => (
+                queues.length > 0 && queues.map((queue, i) => (
                   <tr key={queue.id} className="list-group-item">
                     <td>
-                      1
+                      {i + 1}
                     </td>
                     <td>
                       {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
