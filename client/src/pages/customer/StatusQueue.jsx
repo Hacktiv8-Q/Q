@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { onMessageListener } from "firebaseInit"
 import { fetchQueueDetail } from "store/action/queue"
 
 export default function StatusQueue(props) {
@@ -15,7 +16,16 @@ export default function StatusQueue(props) {
     return el.queueDetail.OutletId === props.outletId
   })
   console.log(data, 'ini data')
-  // console.log(queueDetail, 'ini queuedetail')
+  console.log(queueDetail, 'ini queuedetail')
+
+  onMessageListener()
+    .then((payload) => {
+      const { title, body } = payload.data;
+      console.log(`message ${title}; ${body}`);
+    })
+    .catch((err) => {
+      console.error(JSON.stringify(err));
+    });
 
   return (
     <div className="columns is-centered is-vcentered">
@@ -25,7 +35,7 @@ export default function StatusQueue(props) {
         </h1>
         <div className="circle-wrapper">
           <div className="circle">
-            {data && <h1 className="has-text-centered mb-5">{data.data.totalQueue}</h1>}
+            {data && <h1 className="has-text-centered mb-5">{data.data.queueNumber}</h1>}
           </div>
         </div>
         <p className="subtitle is-5 has-text-centered">

@@ -1,39 +1,38 @@
-import BackButton from 'components/BackButton'
 import { useState } from 'react'
-import QrReader from 'react-qr-reader'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { requestFirebaseNotificationPermission } from 'firebaseInit';
-import { addQueue } from '../../store/action/queue'
+import { useHistory, useParams } from 'react-router-dom'
+import QrReader from 'react-qr-reader'
+import BackButton from 'components/BackButton'
+import { updateCashierQueue } from 'store/action/queueCashier'
 
 export default function QueueStatus() {
-  const [deviceToken, setDeviceToken] = useState('');
   const [scanNotDone, setScanNotDone] = useState(true)
   const dispatch = useDispatch()
   const history = useHistory()
+  const { queueId } = useParams()
+
+  const OutletId = localStorage.outletId
+  const token = localStorage.getItem("tokenCashier")
 
   const handleScan = data => {
     if (data) {
       const payload = {
-        deviceToken,
-        outletId: data
+        status: 'in',
+        OutletId,
+        uniqueCode: data,
+        token,
+        queueId
       }
-      dispatch(addQueue(payload))
+
+      dispatch(updateCashierQueue(payload))
       setScanNotDone(false)
-      history.push("/status-success")
+      history.push("/admin/queue-list")
     }
   }
 
   const handleError = err => {
     console.error(err)
   }
-
-  requestFirebaseNotificationPermission()
-    .then(firebaseToken => {
-      // console.log('firebaseToken', firebaseToken);
-      setDeviceToken(firebaseToken)
-    })
-    .catch(err => console.log('error', err));
 
   return (
     <div className="columns is-centered is-vcentered">
@@ -47,7 +46,6 @@ export default function QueueStatus() {
             style={{ width: '100%' }}
           />
         }
-        <p className="subtitle has-text-centered mt-3">Scan QRCode from Outlet</p>
       </div>
     </div>
   )
