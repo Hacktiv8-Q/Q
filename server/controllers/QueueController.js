@@ -1,8 +1,23 @@
-const { Queue, Outlet } = require('../models')
-const { generateToken, verifyToken } = require('../helper/jwt')
+const { Queue, Outlet, Customer } = require('../models')
+const { verifyToken } = require('../helper/jwt')
 const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
 
 class Controller {
+  static getAllQueue(req, res, next) {
+    const id = +req.params.outletId
+    Outlet.findOne({
+      where: { id },
+      include: [{
+        model: Queue,
+        include: Customer
+      }]
+    })
+      .then(data => {
+        // console.log('data', data.toJSON())
+        res.status(200).json({ data })
+      })
+      .catch(err => next(err))
+  }
   static getQueue(req, res, next) {
     const id = +req.params.outletId
     const userId = +req.userData.id
@@ -27,9 +42,9 @@ class Controller {
   }
   static addQueue(req, res, next) {
     const OutletId = +req.params.outletId
-    const CustomerId = 1 //+req.userData.id
+    const CustomerId = +req.userData.id
     const status = 'queue'
-    const email = 'basilius@gmail.com' //req.userData.email
+    const email = req.userData.email
     const uniqueCode = uniqueCodeGenerator(email)
     let statusToClient = ''
     let uniqueCodeToClient = ''
@@ -53,6 +68,9 @@ class Controller {
     const { status, uniqueCode, OutletId } = req.body
     const cashierOutletId = req.userData.OutletId
     const { id } = req.params
+    console.log('req.body', req.body)
+    console.log('id', id)
+    console.log('cashierOutletId', cashierOutletId)
     if (cashierOutletId == OutletId) {
       Queue.findOne({ where: { id } })
         .then(data => {
@@ -60,7 +78,7 @@ class Controller {
           if (verifyToken(data.uniqueCode) !== uniqueCode) throw { msg: 'Unique Code did not match', statusCode: 401 }
           return data.update({ status }, { where: { id } })
         })
-        .then(data => {
+        .then(() => {
           res.status(200).json({ status: `success update queue id ${id}` })
         })
         .catch(err => next(err))
