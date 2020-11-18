@@ -10,7 +10,7 @@ const OutletCard = (props) => {
   function handleDelete() {
     dispatch(deleteOutlet(props.id))
   }
-
+  
   return (
     <div className="card">
       <div className="card-image">
@@ -29,6 +29,7 @@ const OutletCard = (props) => {
           {props.description}
           <br />
         </div>
+        {JSON.stringify(props.cashiers)}
       </div>
       <footer className="card-footer">
         <a onClick={() => history.push('/admin/register-cashier/' + props.id)} className="card-footer-item">Add Cashier</a>
