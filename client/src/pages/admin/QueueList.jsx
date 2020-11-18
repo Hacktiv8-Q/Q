@@ -32,7 +32,7 @@ export default function QueueList() {
             </thead>
             <tbody className="list-group">
               {
-                queues.length > 0 && queues.map((queue, i) => (
+                queues.length > 0 && queues.filter(elem => elem.status == 'queue').map((queue, i) => (
                   <tr key={queue.id} className="list-group-item">
                     <td>
                       {i + 1}
@@ -73,12 +73,15 @@ export default function QueueList() {
           <div className="column is-8">
             <div className="content">
               <div className="panel list-group">
-                <a className="panel-block list-group-item disabled" href="!#">
-                  1. Nabila
-                </a>
-                <a className="panel-block list-group-item disabled" href="!#">
-                  2. Aji Tio
-                </a>
+                {
+                  queues.length > 0 && queues.map((queue, i) => (
+                      <div className="panel list-group">
+                        <a key={queue.id} className="panel-block list-group-item disabled" href="!#">
+                          {i+1}. {queue.Customer.firstName} {queue.Customer.lastName}
+                        </a>
+                      </div>
+                  ))
+                }
               </div>
             </div>
           </div>
