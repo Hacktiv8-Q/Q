@@ -1,4 +1,4 @@
-import { LOGIN_CUSTOMER } from '../types/index'
+import { LOGIN, LOGOUT } from '../types'
 
 const initialState = {
   token: ""
@@ -6,12 +6,16 @@ const initialState = {
 
 export default function customerReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case LOGIN_CUSTOMER:
+    case LOGIN:
       return {
         ...state,
         token: payload
       }
-
+    case LOGOUT:
+      return {
+        ...state,
+        token: payload
+      }
     default:
       return state
   }

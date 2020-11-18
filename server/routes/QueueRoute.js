@@ -3,6 +3,7 @@ const QueueController = require('../controllers/QueueController')
 const { customerAuthentication, cashierAuthentication } = require('../middlewares/authentication')
 const { customerAuthorization, adminCashierAuthorization } = require('../middlewares/authorization')
 
+router.get('/', customerAuthentication, customerAuthorization, QueueController.getQueueByCustomer)
 router.get('/:outletId', customerAuthentication, customerAuthorization, QueueController.getQueue)
 router.post('/:outletId', customerAuthentication, customerAuthorization, QueueController.addQueue)
 router.put('/:id', cashierAuthentication, adminCashierAuthorization, QueueController.updateQueue)

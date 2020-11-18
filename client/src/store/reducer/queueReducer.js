@@ -1,8 +1,9 @@
-import { FETCH_QUEUE, ADD_QUEUE } from '../types'
+import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL } from '../types'
 
 const initialState = {
   queue: [],
-  newQueue: {} //OutletId, CustomerId, status, uniqueCode 
+  newQueue: {},
+  queueDetail: []
 }
 
 export default function queueReducer(state = initialState, { type, payload }) {
@@ -11,6 +12,11 @@ export default function queueReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         queue: payload
+      }
+    case FETCH_QUEUE_DETAIL:
+      return {
+        ...state,
+        queueDetail: state.queueDetail.concat(payload)
       }
     case ADD_QUEUE:
       return {

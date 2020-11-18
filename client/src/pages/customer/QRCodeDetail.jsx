@@ -1,8 +1,10 @@
 import BackButton from 'components/BackButton'
 import QRCode from 'qrcode.react'
+import { useLocation } from 'react-router-dom'
 
 export default function QRCodeDetail() {
-  console.log('QRCodeDetail render')
+  const location = useLocation()
+
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-6">
@@ -12,7 +14,7 @@ export default function QRCodeDetail() {
         </h1>
         <div className="container has-text-centered py-5">
           <QRCode
-            value="HelloWorlHashedWithBcrypt"
+            value={location.state.uniqueCode}
             size="300"
           />
         </div>

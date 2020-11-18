@@ -61,28 +61,17 @@ export default function App() {
 
 						{/* Customer Route */}
 						<PrivateRouteCustomer path="/status" component={Status} exact />
-						<PrivateRouteCustomer
-							path="/status-queue"
-							component={StatusQueue}
-						/>
-						<PrivateRouteCustomer
-							path="/status-success"
-							component={StatusSuccess}
-						/>
+						<PrivateRouteCustomer path="/status-queue" component={StatusQueue} />
+						<PrivateRouteCustomer	path="/status-success" component={StatusSuccess} />
 						<PrivateRouteCustomer path="/categories" component={Categories} />
 						<PrivateRouteCustomer path="/scan" component={ScanQRCode} />
-						<PrivateRouteCustomer
-							path="/outlet-list"
-							component={OutletListCustomer}
-						/>
+						<PrivateRouteCustomer path="/outlet-list" component={OutletListCustomer} />
+						<PrivateRouteCustomer path="/qrcode-detail" component={QRCodeDetail} />
 						<Route path="/login">
 							<LoginCustomer />
 						</Route>
 						<Route path="/register">
 							<RegisterCustomer />
-						</Route>
-						<Route path="/qrcode-detail">
-							<QRCodeDetail />
 						</Route>
 						<Route path="/notification">
 							<Notification />
