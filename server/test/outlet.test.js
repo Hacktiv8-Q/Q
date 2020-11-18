@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const { Outlet, Customer, Admin } = require("../models");
+const { Customer, Admin } = require("../models");
 const { generateToken } = require("../helper/jwt");
 const { comparePass } = require("../helper/bcrypt");
 

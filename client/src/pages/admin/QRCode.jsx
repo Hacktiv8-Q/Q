@@ -6,7 +6,7 @@ export default function QRCodePage() {
   const [outletId, setOutletId] = useState('')
   useEffect(() => {
     if (localStorage.outletId) {
-      setOutletId(+localStorage.outletId)
+      setOutletId(localStorage.outletId)
     }
   }, [])
 
