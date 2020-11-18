@@ -9,3 +9,4 @@ export { default as RegisterAdmin } from "./RegisterAdmin";
 export { default as RegisterCashier } from "./RegisterCashier";
 export { default as EditOutlet } from "./EditOutlet";
 export { default as ScanQRCode } from "./ScanQRCode";
+export { default as LoginCashier } from "./LoginCashier";
