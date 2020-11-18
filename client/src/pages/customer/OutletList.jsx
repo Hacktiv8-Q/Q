@@ -70,7 +70,7 @@ export default function OutletList() {
   }, [])
 
   const category = location.state.category
-  const outletByCategory = outlet.filter(el => {
+  const outletByCategory = outlet?.filter(el => {
     return el.category === category
   })
   console.log(outletByCategory, 'ini outletbycategory')
@@ -85,7 +85,7 @@ export default function OutletList() {
       <div className="column is-7-desktop is-10-tablet">
         <BackButton />
         <h1 className="title">
-          List of Dinner Place
+          List of {category}
         </h1>
         <Slider {...settings}>
 

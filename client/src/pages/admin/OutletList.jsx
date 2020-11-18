@@ -63,7 +63,7 @@ export default function OutletList() {
           </div>
         </div>
         <h1 className="title has-text-centered">Outlet List</h1>
-        <div className="columns">
+        <div className="columns is-multiline">
           {outlets.length > 0 && outlets.map(outlet => (
             <div key={outlet.id} className="column is-6">
               <OutletCard

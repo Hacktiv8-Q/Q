@@ -2,7 +2,8 @@ import BackButton from "components/BackButton";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchCashierQueue, updateCashierQueue } from "store/action/queueCashier";
+import Swal from 'sweetalert2';
+import { fetchCashierQueue } from "store/action/queueCashier";
 
 export default function QueueList() {
   const outletId = localStorage.outletId
@@ -13,6 +14,44 @@ export default function QueueList() {
   useEffect(() => {
     dispatch(fetchCashierQueue(outletId, token))
   }, [])
+
+  const historyQueus = queues?.filter(queue => queue.status === 'out')
+
+  const archiveQueue = () => {
+    Swal.fire({
+      title: 'Change Status to "Out"?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#00d1b2',
+      cancelButtonColor: '#f14668',
+      confirmButtonText: 'Yes, change it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+
+      }
+    })
+  }
+
+  const queueRow = queues.length > 0 && queues.filter(i => i.status === 'queue')
+    .queues.map((queue, i) => (
+      <tr key={queue.id} className="list-group-item">
+        <td>
+          {i + 1}
+        </td>
+        <td>
+          {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
+        </td>
+        <td>
+          <Link
+            className="button is-warning"
+            to={`/admin/scan/${queue.id}`}
+          >
+            <b>Q</b>
+          </Link>
+        </td>
+      </tr>
+    ))
 
   return (
     <div className="columns is-centered is-vcentered">
@@ -51,13 +90,6 @@ export default function QueueList() {
                           </Link>
                         )
                       }
-                      {
-                        queue.status === 'in' && (
-                          <button className="button is-success">
-                            <b>IN</b>
-                          </button>
-                        )
-                      }
                     </td>
                   </tr>
                 ))
@@ -67,18 +99,22 @@ export default function QueueList() {
         </div>
 
         <h1 className="title">
-          Today Queue
+          History Queue
         </h1>
         <div className="columns">
           <div className="column is-8">
             <div className="content">
               <div className="panel list-group">
-                <a className="panel-block list-group-item disabled" href="!#">
-                  1. Nabila
-                </a>
-                <a className="panel-block list-group-item disabled" href="!#">
-                  2. Aji Tio
-                </a>
+                {
+                  historyQueus &&
+                    historyQueus.length > 0
+                    ? historyQueus.map((queue, i) => (
+                      <a className="panel-block list-group-item disabled" href="!#">
+                        {i + 1}. {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
+                      </a>
+                    ))
+                    : <p className="subtitle p-3">No queue history</p>
+                }
               </div>
             </div>
           </div>
