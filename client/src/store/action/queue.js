@@ -1,14 +1,30 @@
 import axios from 'config/axios'
-import { FETCH_QUEUE, ADD_QUEUE } from 'store/types'
+import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL } from 'store/types'
 
 export const fetchQueue = () => dispatch => {
   axios({
     method: 'get',
-    url: ''
+    url: 'http://localhost:3000/queues/',
+    headers: { token: localStorage.tokenCustomer }
   })
     .then(({ data }) => {
       dispatch({
         type: FETCH_QUEUE,
+        payload: data.data
+      })
+    })
+    .catch(console.log)
+}
+
+export const fetchQueueDetail = (outletId) => dispatch => {
+  axios({
+    method: 'get',
+    url: 'http://localhost:3000/queues/' + outletId,
+    headers: { token: localStorage.tokenCustomer }
+  })
+    .then(({ data }) => {
+      dispatch({
+        type: FETCH_QUEUE_DETAIL,
         payload: data
       })
     })
@@ -19,7 +35,7 @@ export const addQueue = (OutletId) => dispatch => {
   axios({
     method: 'post',
     url: 'http://localhost:3000/queues/' + OutletId,
-    headers: {token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYXNpbGl1c0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2MDU0NTU1MTh9.pqtIU31pNfRKzXBlgJQ6QXl2K7Q6OdEN5NPUnFXcsK0"}
+    headers: { token: localStorage.tokenCustomer }
   })
     .then(({ data }) => {
       dispatch({

@@ -3,6 +3,14 @@ const { generateToken, verifyToken } = require('../helper/jwt')
 const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
 
 class Controller {
+  static getQueueByCustomer(req, res, next) {
+    const CustomerId = +req.userData.id
+    Queue.findAll({ where: { CustomerId } })
+      .then(data => {
+        res.status(200).json({ data })
+      })
+      .catch(err => next(err))
+  }
   static getQueue(req, res, next) {
     const id = +req.params.outletId
     const userId = +req.userData.id
@@ -35,11 +43,13 @@ class Controller {
     let statusToClient = ''
     let uniqueCodeToClient = ''
     let deviceTokenToClient = ''
+    let id
     Queue.create({ OutletId, CustomerId, status, uniqueCode, deviceToken })
       .then(queue => {
         uniqueCodeToClient = verifyToken(queue.uniqueCode)
         statusToClient = queue.status
         deviceTokenToClient = queue.deviceToken
+        id = queue.id
         return Outlet.findOne({ where: { id: OutletId }, include: [Queue] })
       })
       .then(data => {
@@ -47,9 +57,10 @@ class Controller {
           status: statusToClient,
           uniqueCode: uniqueCodeToClient,
           totalQueue: data.dataValues.Queues.length,
-          deviceToken: deviceTokenToClient
+          deviceToken: deviceTokenToClient,
+          id
         }
-        res.status(200).json({ data })
+        res.status(201).json({ data })
       })
       .catch(err => next(err))
   }

@@ -111,13 +111,13 @@ describe("Add Outlet / Error Case", () => {
 describe("Get all outlet / Success Case", () => {
 	test("Shoud sent an array of Object with keys: id, name, description, category, image_url", (done) => {
 		request(app)
-			.get('/outlets')
+			.get('/outlets/admin')
 			.set("token", token)
 			.end((function (err, res) {
 				if (err) throw err;
 				else {
 					expect(res.status).toBe(200)
-					expect(res.body).toHaveProperty('data', expect.any(Array))
+					expect(res.body).toHaveProperty('Outlets', expect.any(Array))
 					done()
 				}
 			}))
@@ -278,7 +278,7 @@ describe("Delete outlet by admin / Error Case", () => {
             .end((function (err, res) {
                 if (err) throw err;
                 else {
-                    const errors = ["Id Not Found"]
+					const errors = ["Id Not Found"]
                     expect(res.status).toBe(404)
                     expect(res.body.errors).toEqual(errors)
                     done()
