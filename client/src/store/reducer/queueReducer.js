@@ -1,4 +1,4 @@
-import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL } from '../types'
+import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL, CLEAR_QUEUE } from '../types'
 
 const initialState = {
   queue: [],
@@ -22,6 +22,11 @@ export default function queueReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         newQueue: payload
+      }
+    case CLEAR_QUEUE:
+      return {
+        ...state,
+        queue: []
       }
     default:
       return state

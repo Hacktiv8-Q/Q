@@ -2,14 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "store/action/customer";
-import { fetchQueue } from "../../store/action/queue"
+import { fetchQueue, clearQueue } from "../../store/action/queue"
 import StatusQueue from "./StatusQueue"
 
 export default function Status() {
   const { queue } = useSelector(state => state.queue)
   const dispatch = useDispatch()
   const history = useHistory()
-  console.log(queue, 'ini queue')
 
   useEffect(() => {
     dispatch(fetchQueue())
@@ -18,6 +17,7 @@ export default function Status() {
   const handleLogout = () => {
     localStorage.clear()
     dispatch(logout())
+    dispatch(clearQueue())
     history.push("/")
   }
 
