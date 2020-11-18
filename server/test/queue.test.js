@@ -1,11 +1,11 @@
 const request = require('supertest')
 const app = require('../app')
-const { Queue, Customer, Admin } = require('../models')
+const { Queue, Customer, Cashier } = require('../models')
 const { generateToken } = require('../helper/jwt')
 const { comparePass } = require('../helper/bcrypt')
 
 let tokenCustomer
-let tokenAdminCashier
+let tokenCashier
 let id
 
 beforeAll((done) => {
@@ -31,20 +31,20 @@ beforeAll((done) => {
             done(err)
         })
     ////////////////////////
-    const adminCashierLogin = {
-        email: "kristiawan@gmail.com",
-        password: "kristiawan123"
+    const cashierLogin = {
+        email: "tes@mail.com",
+        password: "tes123"
     }
-    Admin.findOne({ where: { email: adminCashierLogin.email } })
-        .then(adminCashier => {
-            if (adminCashier) {
-                if (comparePass(adminCashierLogin.password, adminCashier.password)) {
+    Cashier.findOne({ where: { email: cashierLogin.email } })
+        .then(cashier => {
+            if (cashier) {
+                if (comparePass(cashierLogin.password, cashier.password)) {
                     let payload = {
-                        id: adminCashier.id,
-                        email: adminCashier.email,
-                        role: adminCashier.role
+                        id: cashier.id,
+                        email: cashier.email,
+                        role: cashier.role
                     }
-                    tokenAdminCashier = generateToken(payload)
+                    tokenCashier = generateToken(payload)
                     done()
                 }
             }
@@ -67,20 +67,15 @@ beforeAll((done) => {
 describe("Create Queue by customer / Success Case", () => {
     test("Shoud sent an Object with keys: id, OutletId, CustomerId, status", (done) => {
         request(app)
-            .post('/queues')
+            .post('/queues/3')
             .set("token", tokenCustomer)
-            .send({ OutletId: 3 })//masih hardcode
+            .send({ deviceToken: 3 })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
-                    id = res.body.queue.id
+                    id = res.body.data.id
                     expect(res.status).toBe(201)
-                    expect(res.body.queue).toHaveProperty('id', expect.any(Number))
-                    expect(res.body.queue).toHaveProperty('OutletId', expect.any(Number))
-                    expect(res.body.queue).toHaveProperty('CustomerId', expect.any(Number))
-                    expect(res.body.queue).toHaveProperty('status', 'queue')
-                    expect(res.body.queue).toHaveProperty('updatedAt')
-                    expect(res.body.queue).toHaveProperty('createdAt')
+                    expect(res.body).toHaveProperty('data')
                     done()
                 }
             }))
@@ -95,16 +90,14 @@ describe("Create Queue by customer / Error Case", () => {
             .end((function (err, res) {
                 if (err) throw err;
                 else {
-                    const errors = ["OutletId is required"]
-                    expect(res.status).toBe(400)
-                    expect(res.body.errors).toEqual(errors)
+                    expect(res.status).toBe(404)
                     done()
                 }
             }))
     })
     test("Failed create queue because invalid token/authentication fail", (done) => {
         request(app)
-            .post('/queues')
+            .post('/queues/3')
             .set("token", 'abcdefghijklmnopqrstuvwxyz')
             .send({ OutletId: 3 })//masih hardcode
             .end((function (err, res) {
@@ -128,7 +121,7 @@ describe("Get all Queue / Success Case", () => {
                 if (err) throw err;
                 else {
                     expect(res.status).toBe(200)
-                    expect(res.body).toHaveProperty('queue', expect.any(Array))
+                    expect(res.body).toHaveProperty('data', expect.any(Array))
                     done()
                 }
             }))
@@ -169,8 +162,8 @@ describe("Update Queue by admin or cashier / Success Case", () => {
     test("Shoud sent an Object with keys: status", (done) => {
         request(app)
             .put('/queues/' + id)
-            .set("token", tokenAdminCashier)
-            .send({ status: 'in' })//masih hardcode
+            .set("token", tokenCashier)
+            .send({ status: 'in',  uniqueCode: 'update', OutletId: 3  })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -186,8 +179,8 @@ describe("Update Queue by admin or cashier / Error Case", () => {
     test("Fail update queue because id not found", (done) => {
         request(app)
             .put('/queues/' + (id + 1))
-            .set("token", tokenAdminCashier)
-            .send({ status: 'in' })//masih hardcode
+            .set("token", tokenCashier)
+            .send({ status: 'in',  uniqueCode: 'update', OutletId: 3  })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -202,7 +195,7 @@ describe("Update Queue by admin or cashier / Error Case", () => {
         request(app)
             .put('/queues/' + id)
             .set("token", 'abcdefghijklmnopqrstuvwxyz')
-            .send({ status: 'in' })//masih hardcode
+            .send({ status: 'in',  uniqueCode: 'update', OutletId: 3  })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -222,7 +215,7 @@ describe("Delete Queue by admin or cashier / Success Case", () => {
     test("Shoud sent an Object with keys: status", (done) => {
         request(app)
             .delete('/queues/' + id)
-            .set("token", tokenAdminCashier)
+            .set("token", tokenCashier)
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -238,7 +231,7 @@ describe("Delete Queue by admin or cashier / Error Case", () => {
     test("Fail delete queue because id not found", (done) => {
         request(app)
             .delete('/queues/' + (id + 1))
-            .set("token", tokenAdminCashier)
+            .set("token", tokenCashier)
             .send({ status: 'in' })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;

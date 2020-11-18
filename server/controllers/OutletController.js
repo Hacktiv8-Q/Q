@@ -1,4 +1,4 @@
-const { Outlet, Queue, Admin, Outlet } = require('../models')
+const { Outlet, Queue, Admin } = require('../models')
 
 class Controller {
   static outlets(req, res, next) {
@@ -12,7 +12,7 @@ class Controller {
     const id = req.userData.id
     Admin.findOne({ where: { id }, include:[Outlet] })
       .then(data => {
-        res.status(201).json(data)
+        res.status(200).json(data)
       })
       .catch(next)
   }

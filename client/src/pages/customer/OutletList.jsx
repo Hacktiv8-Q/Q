@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import Slider from "react-slick";
-import { fetchOutlet } from "../../store/action/outlet"
+import { fetchAllOutlet } from "../../store/action/outlet"
 import { addQueue } from '../../store/action/queue'
 
 function NextArrow(props) {
@@ -66,7 +66,7 @@ export default function OutletList() {
 
 
   useEffect(() => {
-    dispatch(fetchOutlet())
+    dispatch(fetchAllOutlet())
   }, [])
 
   const category = location.state.category

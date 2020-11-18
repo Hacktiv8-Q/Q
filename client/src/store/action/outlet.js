@@ -1,10 +1,10 @@
 import axios from 'config/axios'
 import { FETCH_OUTLET, ADD_OUTLET, FETCH_OUTLET_ADMIN, FETCH_OUTLET_ADMIN_BY_ID  } from 'store/types'
 
-export const fetchOutlet = () => dispatch => {
+export const fetchAllOutlet = () => dispatch => {
   axios({
     method: 'get',
-    url: 'http://localhost:3000/outlets/',
+    url: 'http://localhost:3000/outlets/customer',
     headers: { token: localStorage.tokenCustomer }
   })
     .then(({ data }) => {
@@ -14,6 +14,7 @@ export const fetchOutlet = () => dispatch => {
       })
     })
     .catch(console.log)
+  }
 export const addOutlet = (payload) => (dispatch) => {
   axios({
     method: "post",
