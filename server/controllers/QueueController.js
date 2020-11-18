@@ -15,6 +15,7 @@ class Controller {
     })
       .then(data => {
         // console.log('data', data.toJSON())
+        if(!data) throw new Error
         res.status(200).json({ data })
       })
       .catch(err => next(err))
@@ -113,7 +114,10 @@ class Controller {
           return Queue.findAll({ where: { OutletId, status: 'queue' } })
         })
         .then(queues => {
-          // console.log('queues', queues)
+          if(!queues.length){
+            return;
+          }
+          console.log('queues', queues)
           // Nomer 1
           const firstQueue = queues[0]
           console.log('firstQueue', firstQueue)

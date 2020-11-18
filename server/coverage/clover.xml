@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605709549313" clover="3.2.0">
-  <project timestamp="1605709549314" name="All files">
-    <metrics statements="360" coveredstatements="339" conditionals="63" coveredconditionals="47" methods="86" coveredmethods="74" elements="509" coveredelements="460" complexity="0" loc="360" ncloc="360" packages="6" files="26" classes="26"/>
+<coverage generated="1605713257849" clover="3.2.0">
+  <project timestamp="1605713257849" name="All files">
+    <metrics statements="357" coveredstatements="340" conditionals="65" coveredconditionals="51" methods="83" coveredmethods="74" elements="505" coveredelements="465" complexity="0" loc="357" ncloc="357" packages="6" files="26" classes="26"/>
     <package name="server">
       <metrics statements="27" coveredstatements="22" conditionals="4" coveredconditionals="3" methods="5" coveredmethods="0"/>
       <file name="app.js" path="/home/basiliuswicaksono/AA-Hacktiv8/Phase_3/Final project/Q/server/app.js">
@@ -42,7 +42,7 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="155" coveredstatements="140" conditionals="28" coveredconditionals="24" methods="52" coveredmethods="45"/>
+      <metrics statements="152" coveredstatements="141" conditionals="30" coveredconditionals="26" methods="49" coveredmethods="45"/>
       <file name="AdminController.js" path="/home/basiliuswicaksono/AA-Hacktiv8/Phase_3/Final project/Q/server/controllers/AdminController.js">
         <metrics statements="30" coveredstatements="30" conditionals="8" coveredconditionals="8" methods="8" coveredmethods="8"/>
         <line num="1" count="4" type="stmt"/>
@@ -138,30 +138,28 @@
         <line num="64" count="4" type="stmt"/>
       </file>
       <file name="QueueController.js" path="/home/basiliuswicaksono/AA-Hacktiv8/Phase_3/Final project/Q/server/controllers/QueueController.js">
-        <metrics statements="73" coveredstatements="65" conditionals="10" coveredconditionals="6" methods="25" coveredmethods="20"/>
+        <metrics statements="70" coveredstatements="66" conditionals="12" coveredconditionals="8" methods="22" coveredmethods="20"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
         <line num="61" count="1" type="stmt"/>
         <line num="62" count="1" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
@@ -170,48 +168,47 @@
         <line num="66" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
-        <line num="70" count="1" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="98" count="2" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
         <line num="99" count="2" type="stmt"/>
         <line num="100" count="2" type="stmt"/>
-        <line num="104" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="105" count="2" type="stmt"/>
-        <line num="107" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="108" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="109" count="1" type="stmt"/>
-        <line num="112" count="1" type="stmt"/>
+        <line num="101" count="2" type="stmt"/>
+        <line num="105" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="106" count="2" type="stmt"/>
+        <line num="108" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="109" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="110" count="1" type="stmt"/>
         <line num="113" count="1" type="stmt"/>
-        <line num="116" count="1" type="stmt"/>
-        <line num="118" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
         <line num="119" count="1" type="stmt"/>
-        <line num="121" count="1" type="stmt"/>
+        <line num="120" count="1" type="stmt"/>
         <line num="122" count="1" type="stmt"/>
-        <line num="124" count="2" type="stmt"/>
+        <line num="123" count="1" type="stmt"/>
         <line num="125" count="1" type="stmt"/>
-        <line num="127" count="1" type="stmt"/>
-        <line num="132" count="1" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="139" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="140" count="0" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="150" count="2" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="138" count="1" type="stmt"/>
+        <line num="139" count="0" type="stmt"/>
+        <line num="140" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="141" count="0" type="stmt"/>
+        <line num="145" count="1" type="stmt"/>
+        <line num="147" count="0" type="stmt"/>
         <line num="151" count="2" type="stmt"/>
-        <line num="153" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="154" count="1" type="stmt"/>
-        <line num="157" count="1" type="stmt"/>
-        <line num="159" count="1" type="stmt"/>
-        <line num="163" count="4" type="stmt"/>
+        <line num="152" count="2" type="stmt"/>
+        <line num="154" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="155" count="1" type="stmt"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="164" count="4" type="stmt"/>
       </file>
     </package>
     <package name="server.helper">
@@ -228,7 +225,7 @@
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="4" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
-        <line num="8" count="33" type="stmt"/>
+        <line num="8" count="34" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
       </file>
       <file name="uniqueCodeGen.js" path="/home/basiliuswicaksono/AA-Hacktiv8/Phase_3/Final project/Q/server/helper/uniqueCodeGen.js">
@@ -243,7 +240,7 @@
       </file>
     </package>
     <package name="server.middlewares">
-      <metrics statements="53" coveredstatements="53" conditionals="22" coveredconditionals="14" methods="8" coveredmethods="8"/>
+      <metrics statements="53" coveredstatements="53" conditionals="22" coveredconditionals="16" methods="8" coveredmethods="8"/>
       <file name="authentication.js" path="/home/basiliuswicaksono/AA-Hacktiv8/Phase_3/Final project/Q/server/middlewares/authentication.js">
         <metrics statements="27" coveredstatements="27" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
@@ -256,13 +253,13 @@
         <line num="12" count="10" type="stmt"/>
         <line num="13" count="10" type="stmt"/>
         <line num="15" count="6" type="stmt"/>
-        <line num="19" count="7" type="stmt"/>
-        <line num="20" count="7" type="stmt"/>
-        <line num="21" count="7" type="stmt"/>
-        <line num="22" count="5" type="stmt"/>
-        <line num="25" count="5" type="cond" truecount="1" falsecount="1"/>
-        <line num="26" count="5" type="stmt"/>
-        <line num="27" count="5" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="20" count="8" type="stmt"/>
+        <line num="21" count="8" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="25" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="26" count="6" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
         <line num="29" count="2" type="stmt"/>
         <line num="33" count="7" type="stmt"/>
         <line num="34" count="7" type="stmt"/>
@@ -285,11 +282,11 @@
         <line num="23" count="4" type="stmt"/>
       </file>
       <file name="errHandler.js" path="/home/basiliuswicaksono/AA-Hacktiv8/Phase_3/Final project/Q/server/middlewares/errHandler.js">
-        <metrics statements="19" coveredstatements="19" conditionals="8" coveredconditionals="6" methods="2" coveredmethods="2"/>
-        <line num="2" count="30" type="stmt"/>
-        <line num="3" count="30" type="stmt"/>
-        <line num="4" count="30" type="stmt"/>
-        <line num="7" count="30" type="cond" truecount="4" falsecount="0"/>
+        <metrics statements="19" coveredstatements="19" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="2" count="31" type="stmt"/>
+        <line num="3" count="31" type="stmt"/>
+        <line num="4" count="31" type="stmt"/>
+        <line num="7" count="31" type="cond" truecount="4" falsecount="0"/>
         <line num="9" count="11" type="stmt"/>
         <line num="10" count="11" type="stmt"/>
         <line num="11" count="11" type="stmt"/>
@@ -301,9 +298,9 @@
         <line num="20" count="4" type="stmt"/>
         <line num="21" count="4" type="stmt"/>
         <line num="22" count="4" type="stmt"/>
-        <line num="50" count="8" type="cond" truecount="1" falsecount="1"/>
-        <line num="51" count="8" type="cond" truecount="1" falsecount="1"/>
-        <line num="53" count="30" type="stmt"/>
+        <line num="50" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="31" type="stmt"/>
         <line num="58" count="4" type="stmt"/>
       </file>
     </package>

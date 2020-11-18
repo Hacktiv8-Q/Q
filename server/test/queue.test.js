@@ -131,6 +131,21 @@ describe("Get all Queue by cashier / Success Case", () => {
   })
 })
 
+describe("Get all Queue by cashier / Error Case", () => {
+  test("Fail get all queue by cashier", (done) => {
+    request(app)
+      .get('/queues/cashier/10001')
+      .set("token", tokenCashier)
+      .end((function (err, res) {
+        if (err) throw err;
+        else {
+          expect(res.status).toBe(500)
+          done()
+        }
+      }))
+  })
+})
+
 describe("Get all Queue / Success Case", () => {
   test("Shoud sent an array of Object with keys: id, OutletId, CustomerId, status", (done) => {
     request(app)
