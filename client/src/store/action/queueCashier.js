@@ -3,7 +3,7 @@ import { FETCH_CASHIER_QUEUE } from 'store/types'
 
 export const fetchCashierQueue = (outletId, token) => dispatch => {
   axios({
-    url: '/queues/' + outletId,
+    url: '/queues/cashier/' + outletId,
     method: 'get',
     headers: { token }
   })

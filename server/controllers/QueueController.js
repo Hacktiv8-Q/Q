@@ -1,6 +1,7 @@
 const { Queue, Outlet, Customer } = require('../models')
 const { verifyToken } = require('../helper/jwt')
 const uniqueCodeGenerator = require('../helper/uniqueCodeGen')
+const { sendNotificationToClient } = require('../notify')
 
 class Controller {
   static getAllQueue(req, res, next) {
@@ -20,7 +21,7 @@ class Controller {
   }
   static getQueueByCustomer(req, res, next) {
     const CustomerId = +req.userData.id
-    Queue.findAll({ where: { CustomerId } })
+    Queue.findAll({ where: { CustomerId, status: 'queue' } })
       .then(data => {
         res.status(200).json({ data })
       })
@@ -29,9 +30,16 @@ class Controller {
   static getQueue(req, res, next) {
     const id = +req.params.outletId
     const userId = +req.userData.id
-    Outlet.findOne({ where: { id }, include: [Queue] })
+    Outlet.findOne({
+      where: { id },
+      include: [{
+        model: Queue,
+        where: { status: 'queue' }
+      }]
+    })
       .then(data => {
-        console.log(data.dataValues.Queues, 'asup ti getqueue')
+        // console.log(data.toJSON(), 'asup ti getqueue')
+        // console.log('userId', userId)
         const arr = data.dataValues.Queues
         const queueNumber = arr.findIndex(el => el.dataValues.CustomerId == userId)
         // console.log(queueNumber)
@@ -65,9 +73,16 @@ class Controller {
         statusToClient = queue.status
         deviceTokenToClient = queue.deviceToken
         id = queue.id
-        return Outlet.findOne({ where: { id: OutletId }, include: [Queue] })
+        return Outlet.findOne({
+          where: { id: OutletId },
+          include: [{
+            model: Queue,
+            where: { status: 'queue' }
+          }]
+        })
       })
       .then(data => {
+        console.log('data', data)
         data = {
           status: statusToClient,
           uniqueCode: uniqueCodeToClient,
@@ -83,10 +98,10 @@ class Controller {
     const { status, uniqueCode, OutletId } = req.body
     const cashierOutletId = req.userData.OutletId
     const { id } = req.params
-    console.log('req.body', req.body)
-    console.log('id', id)
-    console.log('cashierOutletId', cashierOutletId)
-    if (cashierOutletId == OutletId) {
+    // console.log('req.body', req.body)
+    // console.log('id', id)
+    // console.log('cashierOutletId', cashierOutletId)
+    if (cashierOutletId == +OutletId) {
       Queue.findOne({ where: { id } })
         .then(data => {
           if (!data) throw { msg: "Id Not Found", statusCode: 404 }
@@ -95,6 +110,36 @@ class Controller {
         })
         .then(() => {
           res.status(200).json({ status: `success update queue id ${id}` })
+          return Queue.findAll({ where: { OutletId } })
+        })
+        .then(queues => {
+          console.log('queues', queues)
+          // Nomer 1
+          const firstQueue = queues[0]
+          console.log('firstQueue', firstQueue)
+          // Nomer selain 1
+          const nextQueues = queues.slice(1)
+          console.log('nextQueues', nextQueues)
+
+          const nextQueuesDeviceTokens = nextQueues.map(i => i.deviceToken)
+          console.log('nextQueuesDeviceTokens', nextQueuesDeviceTokens)
+
+          const notificationFirstQueue = {
+            title: 'Queue is near',
+            body: 'You now is number 1 in queue',
+          };
+
+          const notificationNextQueue = {
+            title: 'Queue updated',
+            body: 'Queue has been updated',
+          };
+
+          setTimeout(() => {
+            sendNotificationToClient([firstQueue.deviceToken], notificationFirstQueue);
+            if (!nextQueues.length) {
+              sendNotificationToClient([nextQueuesDeviceTokens], notificationNextQueue);
+            }
+          }, 2000);
         })
         .catch(err => next(err))
     } else {

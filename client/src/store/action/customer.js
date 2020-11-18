@@ -4,8 +4,8 @@ import { LOGIN, LOGOUT } from 'store/types'
 export const login = (dataLogin) => dispatch => {
   axios({
     method: 'post',
-    url: 'http://localhost:3000/customers/login',
-    data: {email: dataLogin.email, password: dataLogin.password}
+    url: '/customers/login',
+    data: { email: dataLogin.email, password: dataLogin.password }
   })
     .then(({ data }) => {
       dispatch({

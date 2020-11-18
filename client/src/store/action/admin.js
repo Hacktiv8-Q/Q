@@ -27,24 +27,9 @@ export const loginCashier = (dataLogin) => (dispatch) => {
       localStorage.setItem("tokenCashier", data.token);
       localStorage.setItem("outletId", data.payload.OutletId);
       dispatch({
-        type: LOGIN_ADMIN,
+        type: LOGIN_CASHIER,
         payload: data.token,
       });
     })
     .catch(console.log);
-};
-
-export const loginCashier = (dataLogin) => (dispatch) => {
-	axios({
-		method: "post",
-		url: "http://localhost:3000/admins/login-cashier",
-		data: { email: dataLogin.email, password: dataLogin.password },
-	})
-		.then(({ data }) => {
-			dispatch({
-				type: LOGIN_CASHIER,
-				payload: data.token,
-			});
-		})
-		.catch(console.log);
 };

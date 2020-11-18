@@ -11,14 +11,14 @@ export default function QueueStatus() {
   const history = useHistory()
   const { queueId } = useParams()
 
-  const outletId = localStorage.outletId
+  const OutletId = localStorage.outletId
   const token = localStorage.getItem("tokenCashier")
 
   const handleScan = data => {
     if (data) {
       const payload = {
         status: 'in',
-        outletId,
+        OutletId,
         uniqueCode: data,
         token,
         queueId

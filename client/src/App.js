@@ -153,6 +153,14 @@ export default function App() {
               path="/admin/queue-history"
               component={QueueHistory}
             />
+            <PrivateRouteAdmin
+              path="/admin/register-cashier/:outletId"
+              component={RegisterCashier}
+            />
+            <PrivateRouteAdmin
+              path="/admin/edit-outlet/:outletId"
+              component={EditOutlet}
+            />
             <Route path="/admin/login">
               <LoginAdmin />
             </Route>

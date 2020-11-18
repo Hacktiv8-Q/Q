@@ -54,7 +54,7 @@ export default function QueueList() {
                       {
                         queue.status === 'in' && (
                           <button className="button is-success">
-                            <b>Q</b>
+                            <b>IN</b>
                           </button>
                         )
                       }

@@ -1,10 +1,11 @@
 import axios from 'config/axios'
-import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL } from 'store/types'
+import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL, CLEAR_QUEUE } from 'store/types'
 
 export const fetchQueue = () => dispatch => {
+  console.log('called fetch')
   axios({
     method: 'get',
-    url: 'http://localhost:3000/queues/',
+    url: '/queues/',
     headers: { token: localStorage.tokenCustomer }
   })
     .then(({ data }) => {
@@ -19,7 +20,7 @@ export const fetchQueue = () => dispatch => {
 export const fetchQueueDetail = (outletId) => dispatch => {
   axios({
     method: 'get',
-    url: 'http://localhost:3000/queues/' + outletId,
+    url: '/queues/' + outletId,
     headers: { token: localStorage.tokenCustomer }
   })
     .then(({ data }) => {
@@ -31,11 +32,12 @@ export const fetchQueueDetail = (outletId) => dispatch => {
     .catch(console.log)
 }
 
-export const addQueue = (OutletId) => dispatch => {
+export const addQueue = ({ deviceToken, outletId }) => dispatch => {
   axios({
     method: 'post',
-    url: 'http://localhost:3000/queues/' + OutletId,
-    headers: { token: localStorage.tokenCustomer }
+    url: '/queues/' + outletId,
+    headers: { token: localStorage.tokenCustomer },
+    data: { deviceToken }
   })
     .then(({ data }) => {
       dispatch({
@@ -44,4 +46,10 @@ export const addQueue = (OutletId) => dispatch => {
       })
     })
     .catch(console.log)
+}
+
+export const clearQueue = () => {
+  return {
+    type: CLEAR_QUEUE
+  }
 }

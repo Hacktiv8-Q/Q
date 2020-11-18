@@ -1,20 +1,24 @@
 import BackButton from 'components/BackButton'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import QrReader from 'react-qr-reader'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { requestFirebaseNotificationPermission } from 'firebaseInit';
 import { addQueue } from '../../store/action/queue'
 
 export default function QueueStatus() {
-  // const [result, setResult] = useState('No Result')
+  const [deviceToken, setDeviceToken] = useState('');
   const [scanNotDone, setScanNotDone] = useState(true)
   const dispatch = useDispatch()
   const history = useHistory()
 
   const handleScan = data => {
     if (data) {
-      // setResult(data)
-      dispatch(addQueue(data))
+      const payload = {
+        deviceToken,
+        outletId: data
+      }
+      dispatch(addQueue(payload))
       setScanNotDone(false)
       history.push("/status-success")
     }
@@ -23,6 +27,13 @@ export default function QueueStatus() {
   const handleError = err => {
     console.error(err)
   }
+
+  requestFirebaseNotificationPermission()
+    .then(firebaseToken => {
+      // console.log('firebaseToken', firebaseToken);
+      setDeviceToken(firebaseToken)
+    })
+    .catch(err => console.log('error', err));
 
   return (
     <div className="columns is-centered is-vcentered">

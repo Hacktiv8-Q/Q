@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { login } from "../../store/action/admin";
+import { loginAdmin, loginCashier } from "../../store/action/admin";
 
 export default function Login() {
-  const [inputLogin, setInputLogin] = useState({ email: "", password: "" });
+  const [inputLogin, setInputLogin] = useState({ email: "", password: "", role: "owner" });
   const { token } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    localStorage.setItem("tokenAdmin", token);
     if (localStorage.tokenAdmin) {
       history.push("/admin/outlet-list");
+    }
+
+    if (localStorage.tokenCashier) {
+      history.push("/admin");
     }
   }, [token]);
 
@@ -26,7 +29,11 @@ export default function Login() {
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
-    dispatch(login(inputLogin));
+    if (inputLogin.role === 'owner') {
+      dispatch(loginAdmin(inputLogin));
+    } else {
+      dispatch(loginCashier(inputLogin));
+    }
   };
 
   return (
@@ -40,7 +47,7 @@ export default function Login() {
               <input
                 name="email"
                 value={inputLogin.email}
-                onChange={(e) => handleInputLogin(e)}
+                onChange={handleInputLogin}
                 className="input"
                 type="email"
                 placeholder="Email input"
@@ -56,7 +63,7 @@ export default function Login() {
               <input
                 name="password"
                 value={inputLogin.password}
-                onChange={(e) => handleInputLogin(e)}
+                onChange={handleInputLogin}
                 className="input"
                 type="password"
                 placeholder="Password"
@@ -66,6 +73,18 @@ export default function Login() {
               </span>
             </div>
           </div>
+          <div className="field">
+            <label className="label">Choose role</label>
+            <div className="control">
+              <div className="select">
+                <select name="role" onChange={handleInputLogin}>
+                  <option value="owner">Owner</option>
+                  <option value="cashier">Cashier</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className="field">
             <p className="control">
               <button

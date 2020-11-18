@@ -1,10 +1,10 @@
 import axios from 'config/axios'
-import { FETCH_OUTLET, ADD_OUTLET, FETCH_OUTLET_ADMIN, FETCH_OUTLET_ADMIN_BY_ID  } from 'store/types'
+import { FETCH_OUTLET, ADD_OUTLET, FETCH_OUTLET_ADMIN, FETCH_OUTLET_ADMIN_BY_ID } from 'store/types'
 
 export const fetchAllOutlet = () => dispatch => {
   axios({
     method: 'get',
-    url: 'http://localhost:3000/outlets/customer',
+    url: '/outlets/customer',
     headers: { token: localStorage.tokenCustomer }
   })
     .then(({ data }) => {
@@ -14,11 +14,11 @@ export const fetchAllOutlet = () => dispatch => {
       })
     })
     .catch(console.log)
-  }
+}
 export const addOutlet = (payload) => (dispatch) => {
   axios({
     method: "post",
-    url: "http://localhost:3000/outlets/",
+    url: "/outlets/",
     data: payload,
     headers: { token: localStorage.getItem('tokenAdmin') }
   })
@@ -34,8 +34,8 @@ export const addOutlet = (payload) => (dispatch) => {
 export const fetchOutlet = () => (dispatch) => {
   axios({
     method: 'get',
-    url: 'http://localhost:3000/outlets/admin',
-    headers: { token: localStorage.getItem('tokenAdmin')}
+    url: '/outlets/admin',
+    headers: { token: localStorage.getItem('tokenAdmin') }
   })
     .then(({ data }) => {
       console.log(data.Outlets, 'asup ti fetchoutlet')
@@ -49,8 +49,8 @@ export const fetchOutlet = () => (dispatch) => {
 export const fetchOutletById = (payload) => (dispatch) => {
   axios({
     method: 'get',
-    url: `http://localhost:3000/outlets/${payload}`,
-    headers: { token: localStorage.getItem('tokenAdmin')}
+    url: `/outlets/${payload}`,
+    headers: { token: localStorage.getItem('tokenAdmin') }
   })
     .then(({ data }) => {
       console.log(data.data, 'ASUP TI FETCHOUTLETBYID')
@@ -64,8 +64,8 @@ export const fetchOutletById = (payload) => (dispatch) => {
 export const editOutlet = (payload) => (dispatch) => {
   axios({
     method: 'put',
-    url: `http://localhost:3000/outlets/${payload.id}`,
-    headers: { token: localStorage.getItem('tokenAdmin')},
+    url: `/outlets/${payload.id}`,
+    headers: { token: localStorage.getItem('tokenAdmin') },
     data: {
       name: payload.name,
       description: payload.description,
@@ -86,8 +86,8 @@ export const editOutlet = (payload) => (dispatch) => {
 export const deleteOutlet = (payload) => (dispatch) => {
   axios({
     method: 'delete',
-    url: `http://localhost:3000/outlets/${payload}`,
-    headers: { token: localStorage.getItem('tokenAdmin')}
+    url: `/outlets/${payload}`,
+    headers: { token: localStorage.getItem('tokenAdmin') }
   })
     .then(() => {
       dispatch(fetchOutlet())

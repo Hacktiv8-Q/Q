@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import queue from './queueReducer'
 import customer from './customerReducer'
-import outlet from './outletRecuder'
+import outlet from './outletReducer'
 import admin from "./adminReducer";
 import queueCashier from "./queueCashierReducer";
 
