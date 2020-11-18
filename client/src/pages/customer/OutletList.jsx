@@ -116,7 +116,7 @@ export default function OutletList() {
                     </div>
                     <div className="card-content">
                       <p className="title is-4">{outlet.name}</p>
-                      <p className="title is-4">Queue: {outlet.Queues.length}</p>
+                      <p className="title is-4">Queue: {outlet.Queues.filter(el => el.status==="queue").length}</p>
                       <div className="content">
                         <button onClick={() => handleAddQueue(outlet.id)} className="button is-primary is-fullwidth is-medium">ADD ME</button>
                       </div>
