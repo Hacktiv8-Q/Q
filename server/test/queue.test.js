@@ -7,6 +7,7 @@ const { comparePass } = require('../helper/bcrypt')
 let tokenCustomer
 let tokenCashier
 let id
+let uniqueCode
 
 beforeAll((done) => {
     const customerLogin = {
@@ -42,7 +43,8 @@ beforeAll((done) => {
                     let payload = {
                         id: cashier.id,
                         email: cashier.email,
-                        role: cashier.role
+                        role: cashier.role,
+                        OutletId: cashier.OutletId
                     }
                     tokenCashier = generateToken(payload)
                     done()
@@ -74,6 +76,7 @@ describe("Create Queue by customer / Success Case", () => {
                 if (err) throw err;
                 else {
                     id = res.body.data.id
+                    uniqueCode = res.body.data.uniqueCode
                     expect(res.status).toBe(201)
                     expect(res.body).toHaveProperty('data')
                     done()
@@ -158,12 +161,29 @@ describe("Get all Queue / Error Case", () => {
     })
 })
 
+describe("Get all Queue by OutletId / Success Case", () => {
+    test("Shoud sent an array of Object with keys: id, OutletId, CustomerId, status", (done) => {
+        request(app)
+            .get('/queues/3')
+            .set("token", tokenCustomer)
+            .end((function (err, res) {
+                if (err) throw err;
+                else {
+                    expect(res.status).toBe(200)
+                    expect(res.body).toHaveProperty('data')
+                    expect(res.body).toHaveProperty('queueDetail')
+                    done()
+                }
+            }))
+    })
+})
+
 describe("Update Queue by admin or cashier / Success Case", () => {
     test("Shoud sent an Object with keys: status", (done) => {
         request(app)
             .put('/queues/' + id)
             .set("token", tokenCashier)
-            .send({ status: 'in',  uniqueCode: 'update', OutletId: 3  })//masih hardcode
+            .send({ status: 'in', uniqueCode, OutletId: 3 })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -180,7 +200,7 @@ describe("Update Queue by admin or cashier / Error Case", () => {
         request(app)
             .put('/queues/' + (id + 1))
             .set("token", tokenCashier)
-            .send({ status: 'in',  uniqueCode: 'update', OutletId: 3  })//masih hardcode
+            .send({ status: 'in', uniqueCode, OutletId: 3 })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -195,7 +215,7 @@ describe("Update Queue by admin or cashier / Error Case", () => {
         request(app)
             .put('/queues/' + id)
             .set("token", 'abcdefghijklmnopqrstuvwxyz')
-            .send({ status: 'in',  uniqueCode: 'update', OutletId: 3  })//masih hardcode
+            .send({ status: 'in', uniqueCode, OutletId: 3 })//masih hardcode
             .end((function (err, res) {
                 if (err) throw err;
                 else {
@@ -207,9 +227,6 @@ describe("Update Queue by admin or cashier / Error Case", () => {
             }))
     })
 })
-
-
-
 
 describe("Delete Queue by admin or cashier / Success Case", () => {
     test("Shoud sent an Object with keys: status", (done) => {

@@ -1,10 +1,21 @@
 const request = require("supertest");
 const app = require("../app");
-const { Admin } = require("../models");
+const { Admin, Cashier } = require("../models");
 
 let id;
+let idCashier;
+let token;
+
 afterAll((done) => {
 	Admin.destroy({ where: { id } })
+		.then((_) => {
+			done();
+		})
+		.catch((err) => {
+			done(err);
+		});
+
+	Cashier.destroy({ where: { id: idCashier } })
 		.then((_) => {
 			done();
 		})
@@ -106,6 +117,7 @@ describe("Login Admin / Success Case", () => {
 			.end(function (err, res) {
 				if (err) throw err;
 				else {
+					token = res.body.token
 					expect(res.status).toBe(200);
 					expect(res.body).toHaveProperty("token");
 					done();
@@ -145,7 +157,6 @@ describe("Login Admin / Error Case", () => {
 				const errors = ["invalid email or password"];
 				if (err) throw err;
 				else {
-					console.log(res.status, res.body, "<<<<<<<<<<<<<<<<<<<<< cek test");
 					expect(res.status).toBe(400);
 					expect(res.body).toHaveProperty("errors", expect.any(Array));
 					expect(res.body.errors).toEqual(errors);
@@ -168,6 +179,69 @@ describe("Login Admin / Error Case", () => {
 					expect(res.status).toBe(400);
 					expect(res.body).toHaveProperty("errors", expect.any(Array));
 					expect(res.body.errors).toEqual(errors);
+					done();
+				}
+			});
+	});
+});
+
+describe("Register Cashier / Succes Case", () => {
+	test("Should return an object with key: message", (done) => {
+		request(app)
+			.post("/admins/register-cashier")
+			.set("token", token)
+			.send({
+				email: "cashier@gmail.com",
+				password: "tes cashier",
+				firstName: "tes cashier",
+				lastName: "tes cashier",
+				OutletId: 3
+			})
+			.end((err, res) => {
+				if (err) throw err;
+				else {
+					idCashier = res.body.data.id
+					expect(res.status).toBe(201);
+					expect(res.body).toHaveProperty("message");
+					expect(res.body).toHaveProperty("data");
+					done();
+				}
+			});
+	});
+});
+
+describe("Login Cashier / Success Case", () => {
+	test("Should sent an Object with keys: token", (done) => {
+		request(app)
+			.post("/admins/login-cashier")
+			.send({
+				email: "cashier@gmail.com",
+				password: "tes cashier",
+			})
+			.end(function (err, res) {
+				if (err) throw err;
+				else {
+					console.log(res.body, '<<<<<<<<< ini body login cashier')
+					expect(res.status).toBe(200);
+					expect(res.body).toHaveProperty("token");
+					done();
+				}
+			});
+	});
+});
+
+describe("Login Cashier / Error Case", () => {
+	test("Invalid email or password", (done) => {
+		request(app)
+			.post("/admins/login-cashier")
+			.send({
+				email: "cashier@gmail.com",
+				password: "tes casher",
+			})
+			.end(function (err, res) {
+				if (err) throw err;
+				else {
+					expect(res.status).toBe(400);
 					done();
 				}
 			});

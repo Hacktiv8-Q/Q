@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/30</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -183,35 +183,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,36 +264,36 @@ class Controller {
       })
       .catch(next);
   }
-<span class="fstat-no" title="function not covered" >  st</span>atic registerCashier(req, res, next) {
-    const { firstName, lastName, email, password, OutletId } = <span class="cstat-no" title="statement not covered" >req.body</span>
-    const obj = <span class="cstat-no" title="statement not covered" >{ firstName, lastName, email, password, OutletId }</span>
-<span class="cstat-no" title="statement not covered" >    console.log(obj, 'ASUP TI REGISTERCASHIER CONTROLLER')</span>
-<span class="cstat-no" title="statement not covered" >    Cashier.create(obj)</span>
-      .then(<span class="fstat-no" title="function not covered" >da</span>ta =&gt; {
-<span class="cstat-no" title="statement not covered" >        res.status(201).json({ message: 'cashier register success', data })</span>
+  static registerCashier(req, res, next) {
+    const { firstName, lastName, email, password, OutletId } = req.body
+    const obj = { firstName, lastName, email, password, OutletId }
+    console.log(obj, 'ASUP TI REGISTERCASHIER CONTROLLER')
+    Cashier.create(obj)
+      .then(data =&gt; {
+        res.status(201).json({ message: 'cashier register success', data })
       })
       .catch(next)
   }
-<span class="fstat-no" title="function not covered" >  st</span>atic loginCashier(req, res, next) {
-    const { email, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-<span class="cstat-no" title="statement not covered" >    Cashier.findOne({ where: { email } })</span>
-      .then(<span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (!data || !comparePass(password, data.password)) {</span>
-<span class="cstat-no" title="statement not covered" >          throw {</span>
+  static loginCashier(req, res, next) {
+    const { email, password } = req.body;
+    Cashier.findOne({ where: { email } })
+      .then((data) =&gt; {
+        if (!data || !comparePass(password, data.password)) {
+          throw {
             name: "UnAuthorized",
             message: "invalid email or password",
             statusCode: 400,
           };
         } else {
-          let payload = <span class="cstat-no" title="statement not covered" >{</span>
+          let payload = {
             id: data.id,
             email: data.email,
             role: data.role,
             OutletId: data.OutletId
           };
-          const id = <span class="cstat-no" title="statement not covered" >+data.id;</span>
-          let token = <span class="cstat-no" title="statement not covered" >generateToken(payload);</span>
-<span class="cstat-no" title="statement not covered" >          res</span>
+          const id = +data.id;
+          let token = generateToken(payload);
+          res
             .status(200)
             .json({ message: "login success", token, id, payload });
         }
@@ -310,7 +310,7 @@ module.exports = Controller;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 18 2020 03:52:35 GMT+0800 (Central Indonesia Time)
+                at Wed Nov 18 2020 13:58:12 GMT+0800 (Central Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

@@ -1,10 +1,11 @@
 const request = require("supertest");
 const app = require("../app");
-const { Outlet, Queue, Admin } = require("../models");
+const { Outlet, Customer, Admin } = require("../models");
 const { generateToken } = require("../helper/jwt");
 const { comparePass } = require("../helper/bcrypt");
 
 let token;
+let tokenCustomer
 let idOutlet;
 
 beforeAll((done) => {
@@ -30,6 +31,28 @@ beforeAll((done) => {
 		.catch((err) => {
 			done(err);
 		});
+	//////////////////////////
+	const customerLogin = {
+		email: "basilius@gmail.com",
+		password: "basilius123"
+	}
+	Customer.findOne({ where: { email: customerLogin.email } })
+		.then(customer => {
+			if (customer) {
+				if (comparePass(customerLogin.password, customer.password)) {
+					let payload = {
+						id: customer.id,
+						email: customer.email,
+						role: customer.role
+					}
+					tokenCustomer = generateToken(payload)
+					done()
+				}
+			}
+		})
+		.catch(err => {
+			done(err)
+		})
 });
 // afterAll((done) => {
 // 	Outlet.destroy({ where: { id: idOutlet } })
@@ -108,6 +131,22 @@ describe("Add Outlet / Error Case", () => {
 	})
 })
 
+describe("Get all outlet customer / Success Case", () => {
+	test("Shoud sent an array of Object with keys: id, name, description, category, image_url", (done) => {
+		request(app)
+			.get('/outlets/customer')
+			.set("token", tokenCustomer)
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					expect(res.status).toBe(200)
+					expect(res.body).toHaveProperty('data', expect.any(Array))
+					done()
+				}
+			}))
+	})
+})
+
 describe("Get all outlet / Success Case", () => {
 	test("Shoud sent an array of Object with keys: id, name, description, category, image_url", (done) => {
 		request(app)
@@ -125,33 +164,33 @@ describe("Get all outlet / Success Case", () => {
 })
 
 describe("Get all outlet / Error Case", () => {
-    test("Fail get all outlet because invalid token / Authentication fail", (done) => {
-        request(app)
-            .get('/outlets')
-            .set("token", 'abcdefghijklmnopqrstuvwxyz')
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ['Fail to authenticate!']
-                    expect(res.status).toBe(401)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
-    test("Fail get all outlet because there is no token", (done) => {
-        request(app)
-            .get('/outlets')
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ['Fail to authenticate!']
-                    expect(res.status).toBe(401)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
+	test("Fail get all outlet because invalid token / Authentication fail", (done) => {
+		request(app)
+			.get('/outlets')
+			.set("token", 'abcdefghijklmnopqrstuvwxyz')
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ['Fail to authenticate!']
+					expect(res.status).toBe(401)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
+	test("Fail get all outlet because there is no token", (done) => {
+		request(app)
+			.get('/outlets')
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ['Fail to authenticate!']
+					expect(res.status).toBe(401)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
 })
 
 describe("Get outlet by id / Success Case", () => {
@@ -175,33 +214,34 @@ describe("Get outlet by id / Success Case", () => {
 })
 
 describe("Get outlet by id / Error Case", () => {
-    test("Fail get outlet by id because invalid token / Authentication fail", (done) => {
-        request(app)
-            .get('/outlets/' + idOutlet)
-            .set("token", 'abcdefghijklmnopqrstuvwxyz')
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ['Fail to authenticate!']
-                    expect(res.status).toBe(401)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
-    test("Fail get outlet by id because there is no token", (done) => {
-        request(app)
-            .get('/outlets/' + idOutlet)
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ['Fail to authenticate!']
-                    expect(res.status).toBe(401)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
+	test("Fail get outlet by id because invalid token / Authentication fail", (done) => {
+		request(app)
+			.get('/outlets/' + idOutlet)
+			.set("token", 'abcdefghijklmnopqrstuvwxyz')
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ['Fail to authenticate!']
+					expect(res.status).toBe(401)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
+	test("Fail get outlet by id because there is no token", (done) => {
+		request(app)
+			.get('/outlets/' + 1001)
+			.set("token", token)
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ['Id Not Found']
+					expect(res.status).toBe(404)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
 })
 
 describe("Update outlet by admin / Success Case", () => {
@@ -222,36 +262,36 @@ describe("Update outlet by admin / Success Case", () => {
 })
 
 describe("Update outlet by admin / Error Case", () => {
-    test("Fail update outlet because id not found", (done) => {
-        request(app)
-            .put('/outlets/' + (idOutlet + 1))
-            .set("token", token)
-            .send({ name: 'edit' })
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ["Id Not Found"]
-                    expect(res.status).toBe(404)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
-    test("Fail update outlet because invalid token / Authentication fail", (done) => {
-        request(app)
-            .put('/outlets/' + idOutlet)
-            .set("token", 'abcdefghijklmnopqrstuvwxyz')
-            .send({ name: 'edit' })
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ["Fail to authenticate!"]
-                    expect(res.status).toBe(401)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
+	test("Fail update outlet because id not found", (done) => {
+		request(app)
+			.put('/outlets/' + (idOutlet + 1))
+			.set("token", token)
+			.send({ name: 'edit' })
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ["Id Not Found"]
+					expect(res.status).toBe(404)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
+	test("Fail update outlet because invalid token / Authentication fail", (done) => {
+		request(app)
+			.put('/outlets/' + idOutlet)
+			.set("token", 'abcdefghijklmnopqrstuvwxyz')
+			.send({ name: 'edit' })
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ["Fail to authenticate!"]
+					expect(res.status).toBe(401)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
 })
 
 describe("Delete outlet by admin / Success Case", () => {
@@ -271,33 +311,33 @@ describe("Delete outlet by admin / Success Case", () => {
 })
 
 describe("Delete outlet by admin / Error Case", () => {
-    test("Fail delete outlet because id not found", (done) => {
-        request(app)
-            .delete('/outlets/' + (idOutlet + 1))
-            .set("token", token)
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
+	test("Fail delete outlet because id not found", (done) => {
+		request(app)
+			.delete('/outlets/' + (idOutlet + 1))
+			.set("token", token)
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
 					const errors = ["Id Not Found"]
-                    expect(res.status).toBe(404)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
-    test("Fail delete outlet because invalid token / Authentication fail", (done) => {
-        request(app)
-            .delete('/outlets/' + idOutlet)
-            .set("token", 'abcdefghijklmnopqrstuvwxyz')
-            .end((function (err, res) {
-                if (err) throw err;
-                else {
-                    const errors = ["Fail to authenticate!"]
-                    expect(res.status).toBe(401)
-                    expect(res.body.errors).toEqual(errors)
-                    done()
-                }
-            }))
-    })
+					expect(res.status).toBe(404)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
+	test("Fail delete outlet because invalid token / Authentication fail", (done) => {
+		request(app)
+			.delete('/outlets/' + idOutlet)
+			.set("token", 'abcdefghijklmnopqrstuvwxyz')
+			.end((function (err, res) {
+				if (err) throw err;
+				else {
+					const errors = ["Fail to authenticate!"]
+					expect(res.status).toBe(401)
+					expect(res.body.errors).toEqual(errors)
+					done()
+				}
+			}))
+	})
 })
 
