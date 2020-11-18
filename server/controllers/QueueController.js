@@ -18,6 +18,14 @@ class Controller {
       })
       .catch(err => next(err))
   }
+  static getQueueByCustomer(req, res, next) {
+    const CustomerId = +req.userData.id
+    Queue.findAll({ where: { CustomerId } })
+      .then(data => {
+        res.status(200).json({ data })
+      })
+      .catch(err => next(err))
+  }
   static getQueue(req, res, next) {
     const id = +req.params.outletId
     const userId = +req.userData.id
@@ -45,22 +53,29 @@ class Controller {
     const CustomerId = +req.userData.id
     const status = 'queue'
     const email = req.userData.email
+    const deviceToken = req.body.deviceToken
     const uniqueCode = uniqueCodeGenerator(email)
     let statusToClient = ''
     let uniqueCodeToClient = ''
-    Queue.create({ OutletId, CustomerId, status, uniqueCode })
+    let deviceTokenToClient = ''
+    let id
+    Queue.create({ OutletId, CustomerId, status, uniqueCode, deviceToken })
       .then(queue => {
         uniqueCodeToClient = verifyToken(queue.uniqueCode)
         statusToClient = queue.status
+        deviceTokenToClient = queue.deviceToken
+        id = queue.id
         return Outlet.findOne({ where: { id: OutletId }, include: [Queue] })
       })
       .then(data => {
         data = {
           status: statusToClient,
           uniqueCode: uniqueCodeToClient,
-          totalQueue: data.dataValues.Queues.length
+          totalQueue: data.dataValues.Queues.length,
+          deviceToken: deviceTokenToClient,
+          id
         }
-        res.status(200).json({ data })
+        res.status(201).json({ data })
       })
       .catch(err => next(err))
   }

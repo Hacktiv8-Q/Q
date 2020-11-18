@@ -44,6 +44,7 @@ class Controller {
   static registerCashier(req, res, next) {
     const { firstName, lastName, email, password, OutletId } = req.body
     const obj = { firstName, lastName, email, password, OutletId }
+    console.log(obj, 'ASUP TI REGISTERCASHIER CONTROLLER')
     Cashier.create(obj)
       .then(data => {
         res.status(201).json({ message: 'cashier register success', data })

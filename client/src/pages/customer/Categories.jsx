@@ -1,4 +1,5 @@
 import BackButton from "components/BackButton";
+import { Link } from "react-router-dom";
 
 export default function Categories() {
   return (
@@ -10,16 +11,19 @@ export default function Categories() {
         </h1>
         <div className="content">
           <div className="panel list-group">
-            <a className="panel-block list-group-item" href="!#">
+            <Link to={{pathname:"/outlet-list", state: {category: "kesehatan"}}} className="panel-block list-group-item">
               Kesehatan
-            </a>
-            <a className="panel-block list-group-item" href="!#">
-              Tempat Makan
-            </a>
-            <a className="panel-block list-group-item" href="!#">
-              Otomotif
-            </a>
-          </div>
+            </Link>
+            <Link to={{pathname:"/outlet-list", state: {category: "tempat makan"}}} className="panel-block list-group-item">
+            Tempat Makan
+            </Link>
+            <Link to={{pathname:"/outlet-list", state: {category: "otomotif"}}} className="panel-block list-group-item">
+            Otomotif
+            </Link>
+            <Link to={{pathname:"/outlet-list", state: {category: "others"}}} className="panel-block list-group-item">
+            Others
+            </Link>
+           </div>
         </div>
       </div>
     </div>

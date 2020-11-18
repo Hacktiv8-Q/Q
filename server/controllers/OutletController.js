@@ -1,10 +1,18 @@
-const { Outlet } = require('../models')
+const { Outlet, Queue, Admin } = require('../models')
 
 class Controller {
   static outlets(req, res, next) {
-    Outlet.findAll()
+    Outlet.findAll({ include: [Queue] })
       .then(data => {
         res.status(200).json({ data })
+      })
+      .catch(next)
+  }
+  static outletsAdmin(req, res, next) {
+    const id = req.userData.id
+    Admin.findOne({ where: { id }, include:[Outlet] })
+      .then(data => {
+        res.status(200).json(data)
       })
       .catch(next)
   }
@@ -12,7 +20,7 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
+        if (!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
         res.status(200).json({ data })
       })
       .catch(next)
@@ -37,7 +45,7 @@ class Controller {
       })
       .then(data => {
         if (!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
-        res.status(200).json({ message: 'Outlet successfully edited'})
+        res.status(200).json({ message: 'Outlet successfully edited' })
       })
       .catch(next)
   }
@@ -45,7 +53,7 @@ class Controller {
     const id = +req.params.id
     Outlet.findOne({ where: { id } })
       .then(data => {
-        if(!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
+        if (!data) throw { name: 'OutletNotFound', msg: 'Id Not Found', statusCode: 404 }
         Outlet.destroy({ where: { id } })
         res.status(200).json({ message: 'Outlet successfully deleted', data })
       })

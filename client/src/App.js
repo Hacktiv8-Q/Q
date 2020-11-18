@@ -25,6 +25,8 @@ import {
   QueueList,
   OutletList as OutletListAdmin,
   ScanQRCode as ScanQRCodeAdmin,
+  RegisterCashier,
+  EditOutlet
 } from "./pages/admin";
 import RegisterAdmin from "./pages/admin/RegisterAdmin";
 import "./App.css";

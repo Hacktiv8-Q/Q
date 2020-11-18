@@ -1,5 +1,10 @@
 import BackButton from "components/BackButton";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import Slider from "react-slick";
+import { fetchAllOutlet } from "../../store/action/outlet"
+import { addQueue } from '../../store/action/queue'
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -54,6 +59,26 @@ export default function OutletList() {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />
   }
+  const { outlet } = useSelector(state => state.outlet)
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const history = useHistory()
+
+
+  useEffect(() => {
+    dispatch(fetchAllOutlet())
+  }, [])
+
+  const category = location.state.category
+  const outletByCategory = outlet.filter(el => {
+    return el.category === category
+  })
+  console.log(outletByCategory, 'ini outletbycategory')
+
+  const handleAddQueue = (OutletId) => {
+    dispatch(addQueue(OutletId))
+    history.push("/status-success")
+  }
 
   return (
     <div className="columns is-centered is-vcentered">
@@ -63,54 +88,30 @@ export default function OutletList() {
           List of Dinner Place
         </h1>
         <Slider {...settings}>
-          <div>
-            <div className="card">
-              <div className="card-image">
-                <figure className="image is-4by3">
-                  <img src="https://picsum.photos/880/560" alt="Placeholder image" />
-                </figure>
-              </div>
-              <div className="card-content">
-                <p className="title is-4">Mashū All You Can Eat</p>
-                <p className="title is-4">Queue: 5</p>
-                <div className="content">
-                  <button className="button is-primary is-fullwidth is-medium">ADD ME</button>
+
+          {
+            outletByCategory && outletByCategory.map(outlet => {
+              return (
+                <div>
+                  <div key={outlet.id} className="card">
+                    <div className="card-image">
+                      <figure className="image is-4by3">
+                        <img src={outlet.image_url} alt="Placeholder image" />
+                      </figure>
+                    </div>
+                    <div className="card-content">
+                      <p className="title is-4">{outlet.name}</p>
+                      <p className="title is-4">Queue: {outlet.Queues.length}</p>
+                      <div className="content">
+                        <button onClick={() => handleAddQueue(outlet.id)} className="button is-primary is-fullwidth is-medium">ADD ME</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card">
-              <div className="card-image">
-                <figure className="image is-4by3">
-                  <img src="https://picsum.photos/880/560" alt="Placeholder image" />
-                </figure>
-              </div>
-              <div className="card-content">
-                <p className="title is-4">MD Family</p>
-                <p className="title is-4">Queue: 8</p>
-                <div className="content">
-                  <button className="button is-primary is-fullwidth is-medium">ADD ME</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="card">
-              <div className="card-image">
-                <figure className="image is-4by3">
-                  <img src="https://picsum.photos/880/560" alt="Placeholder image" />
-                </figure>
-              </div>
-              <div className="card-content">
-                <p className="title is-4">Bakso Cak Di</p>
-                <p className="title is-4">Queue: 2</p>
-                <div className="content">
-                  <button className="button is-primary is-fullwidth is-medium">ADD ME</button>
-                </div>
-              </div>
-            </div>
-          </div>
+              )
+            })
+          }
+
         </Slider>
       </div>
     </div>
