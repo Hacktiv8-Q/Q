@@ -110,10 +110,10 @@ class Controller {
         })
         .then(() => {
           res.status(200).json({ status: `success update queue id ${id}` })
-          return Queue.findAll({ where: { OutletId } })
+          return Queue.findAll({ where: { OutletId, status: 'queue' } })
         })
         .then(queues => {
-          console.log('queues', queues)
+          // console.log('queues', queues)
           // Nomer 1
           const firstQueue = queues[0]
           console.log('firstQueue', firstQueue)
@@ -137,7 +137,7 @@ class Controller {
           setTimeout(() => {
             sendNotificationToClient([firstQueue.deviceToken], notificationFirstQueue);
             if (!nextQueues.length) {
-              sendNotificationToClient([nextQueuesDeviceTokens], notificationNextQueue);
+              sendNotificationToClient(nextQueuesDeviceTokens, notificationNextQueue);
             }
           }, 2000);
         })
