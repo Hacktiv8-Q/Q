@@ -1,4 +1,4 @@
-import { LOGIN_ADMIN } from "../types";
+import { LOGIN_ADMIN, LOGIN_CASHIER } from "../types";
 
 const initialState = {
 	token: "",
@@ -11,7 +11,11 @@ export default function adminReducer(state = initialState, { type, payload }) {
 				...state,
 				token: payload,
 			};
-
+		case LOGIN_CASHIER:
+			return {
+				...state,
+				token: payload,
+			};
 		default:
 			return state;
 	}
