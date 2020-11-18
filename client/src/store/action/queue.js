@@ -2,7 +2,6 @@ import axios from 'config/axios'
 import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL, CLEAR_QUEUE } from 'store/types'
 
 export const fetchQueue = () => dispatch => {
-  console.log('called fetch')
   axios({
     method: 'get',
     url: '/queues/',

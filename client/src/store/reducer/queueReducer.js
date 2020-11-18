@@ -26,7 +26,8 @@ export default function queueReducer(state = initialState, { type, payload }) {
     case CLEAR_QUEUE:
       return {
         ...state,
-        queue: []
+        queue: [],
+        queueDetail: []
       }
     default:
       return state
