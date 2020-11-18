@@ -20,7 +20,7 @@ export default function OutletList() {
     history.push("/admin/login")
   }
 
-  // console.log('outlets', outlets)
+  console.log('asup ti outletlist outlets', outlets)
 
   return (
     <div className="columns is-centered is-vcentered">
@@ -64,7 +64,7 @@ export default function OutletList() {
         </div>
         <h1 className="title has-text-centered">Outlet List</h1>
         <div className="columns is-multiline">
-          {outlets.length > 0 && outlets.map(outlet => (
+          {outlets?.length > 0 && outlets.map(outlet => (
             <div key={outlet.id} className="column is-6">
               <OutletCard
                 id={outlet.id}
@@ -72,6 +72,7 @@ export default function OutletList() {
                 name={outlet.name}
                 description={outlet.description}
                 category={outlet.category}
+                cashiers={outlet.Cashiers}
               />
             </div>
           ))

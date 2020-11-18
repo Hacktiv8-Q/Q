@@ -17,7 +17,7 @@ export default function QueueStatus() {
   const handleScan = data => {
     if (data) {
       const payload = {
-        status: 'in',
+        status: 'out',
         OutletId,
         uniqueCode: data,
         token,

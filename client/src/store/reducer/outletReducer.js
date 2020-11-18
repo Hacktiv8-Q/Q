@@ -1,7 +1,8 @@
-import { ADD_OUTLET, FETCH_OUTLET_ADMIN, FETCH_OUTLET_ADMIN_BY_ID } from "../types";
+import { ADD_OUTLET, FETCH_OUTLET_ADMIN, FETCH_OUTLET_ADMIN_BY_ID, FETCH_OUTLET } from "../types";
 
 const initialState = {
   outlets: [],
+  outletsCustomer: []
 };
 
 export default function adminReducer(state = initialState, { type, payload }) {
@@ -20,6 +21,11 @@ export default function adminReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         outlets: payload
+      };
+    case FETCH_OUTLET:
+      return {
+        ...state,
+        outletsCustomer: payload
       };
     default:
       return state;

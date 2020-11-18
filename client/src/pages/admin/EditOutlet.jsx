@@ -2,7 +2,7 @@ import BackButton from "components/BackButton";
 import { useForm } from 'react-hook-form'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchOutletById, editOutlet } from "store/action/outlet";
+import { fetchOutletById, editOutlet, fetchOutlet } from "store/action/outlet";
 import { useEffect } from "react";
 
 export default function EditOutlet() {
@@ -40,7 +40,7 @@ return (
     {outlets && 
     <div className="column is-6">
       <BackButton />
-      <h1 className="title has-text-centered">Add Outlet</h1>
+      <h1 className="title has-text-centered">Edit Outlet</h1>
       <form onSubmit={handleSubmit(submitForm)}>
         <div className="box">
           <div className="field">

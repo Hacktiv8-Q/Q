@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Ruckerpark Coffee & Culture",
+    "description": "Nongkrong betul",
+    "category": "rumah-makan",
+    "image_url": "https://assets-pergikuliner.com/t7EI3KOFNybDKRmWXVd54lery1E=/fit-in/758x598/smart/https://assets-pergikuliner.com/uploads/image/picture/1796227/picture-1579259719.JPG",
+    "AdminId": 1
+  },
+  {
+    "name": "Glare Car Wash",
+    "description": "Cuci mibol",
+    "category": "otomotif",
+    "image_url": "https://autoglobemagz.com/wp-content/uploads/glare1-2.jpg",
+    "AdminId": 1
+  },
+  {
+    "name": "Rumah Sakit",
+    "description": "Sakit mah kesini",
+    "category": "kesehatan",
+    "image_url": "https://acibademinternational.com/wp-content/uploads/2019/10/acibadem-international-hospital.jpg",
+    "AdminId": 1
+  },
+  {
+    "name": "The Dukins",
+    "description": "Cek hoki",
+    "category": "lain",
+    "image_url": "https://www.dara.co.id/wp-content/uploads/2019/11/dukun-santet.jpg",
+    "AdminId": 1
+  }
+]

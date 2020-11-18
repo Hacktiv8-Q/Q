@@ -12,11 +12,10 @@ export default function StatusQueue(props) {
     dispatch(fetchQueueDetail(props.outletId))
   }, [props.outletId])
 
-  const data = queueDetail?.find(el => {
+   const data = queueDetail?.find(el => {
     return el.queueDetail.OutletId === props.outletId
   })
-  // console.log(data, 'ini data')
-  // console.log(queueDetail, 'ini queuedetail')
+  console.log(queueDetail, 'ini queuedetail', )
 
   onMessageListener()
     .then((payload) => {

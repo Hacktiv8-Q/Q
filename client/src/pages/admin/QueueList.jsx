@@ -32,28 +32,30 @@ export default function QueueList() {
             </thead>
             <tbody className="list-group">
               {
-                queues.length > 0 && queues.map((queue, i) => (
-                  <tr key={queue.id} className="list-group-item">
-                    <td>
-                      {i + 1}
-                    </td>
-                    <td>
-                      {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
-                    </td>
-                    <td>
-                      {
-                        queue.status === 'queue' && (
-                          <Link
-                            className="button is-warning"
-                            to={`/admin/scan/${queue.id}`}
-                          >
-                            <b>Q</b>
-                          </Link>
-                        )
-                      }
-                    </td>
-                  </tr>
-                ))
+                queues.length > 0 &&
+                queues.filter(elem => elem.status == 'queue')
+                  .map((queue, i) => (
+                    <tr key={queue.id} className="list-group-item">
+                      <td>
+                        {i + 1}
+                      </td>
+                      <td>
+                        {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
+                      </td>
+                      <td>
+                        {
+                          queue.status === 'queue' && (
+                            <Link
+                              className="button is-warning"
+                              to={`/admin/scan/${queue.id}`}
+                            >
+                              <b>Q</b>
+                            </Link>
+                          )
+                        }
+                      </td>
+                    </tr>
+                  ))
               }
             </tbody>
           </table>
@@ -67,13 +69,15 @@ export default function QueueList() {
             <div className="content">
               <div className="panel list-group">
                 {
-                  historyQueus &&
-                    historyQueus.length > 0
-                    ? historyQueus.map((queue, i) => (
-                      <a className="panel-block list-group-item disabled" href="!#">
-                        {i + 1}. {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
-                      </a>
-                    ))
+                  queues.length > 0 ?
+                    queues.filter(elem => elem.status == 'out')
+                      .queues.map((queue, i) => (
+                        <div className="panel list-group">
+                          <a className="panel-block list-group-item disabled" href="!#">
+                            {i + 1}. {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
+                          </a>
+                        </div>
+                      ))
                     : <p className="subtitle p-3">No queue history</p>
                 }
               </div>
