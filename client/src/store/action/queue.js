@@ -1,5 +1,5 @@
 import axios from 'config/axios'
-import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL, CLEAR_QUEUE } from 'store/types'
+import { FETCH_QUEUE, ADD_QUEUE, FETCH_QUEUE_DETAIL, CLEAR_QUEUE, CLEAR_QUEUE_DETAIL } from 'store/types'
 
 export const fetchQueue = () => dispatch => {
   axios({
@@ -14,6 +14,12 @@ export const fetchQueue = () => dispatch => {
       })
     })
     .catch(console.log)
+}
+
+export const clearQueueDetail = () => {
+  return {
+    type: CLEAR_QUEUE_DETAIL
+  }
 }
 
 export const fetchQueueDetail = (outletId) => dispatch => {

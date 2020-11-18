@@ -1,10 +1,11 @@
 import BackButton from "components/BackButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import { fetchAllOutlet } from "../../store/action/outlet"
-import { addQueue } from '../../store/action/queue'
+import { addQueue, clearQueueDetail } from '../../store/action/queue'
+import { requestFirebaseNotificationPermission } from 'firebaseInit';
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -59,10 +60,11 @@ export default function OutletList() {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />
   }
-  const { outlet } = useSelector(state => state.outlet)
+  const { outletsCustomer } = useSelector(state => state.outlet)
   const dispatch = useDispatch()
   const location = useLocation()
   const history = useHistory()
+  const [deviceToken, setDeviceToken] = useState('')
 
 
   useEffect(() => {
@@ -70,15 +72,28 @@ export default function OutletList() {
   }, [])
 
   const category = location.state.category
-  const outletByCategory = outlet.filter(el => {
+  const outletByCategory = outletsCustomer.filter(el => {
     return el.category === category
   })
-  console.log(outletByCategory, 'ini outletbycategory')
+  console.log(outletsCustomer, 'ini outlet')
 
   const handleAddQueue = (OutletId) => {
-    dispatch(addQueue(OutletId))
+    const payload = {
+      deviceToken,
+      outletId: OutletId
+    }
+    dispatch(clearQueueDetail())
+    dispatch(addQueue(payload))
     history.push("/status-success")
   }
+
+
+  requestFirebaseNotificationPermission()
+    .then(firebaseToken => {
+      // console.log('firebaseToken', firebaseToken);
+      setDeviceToken(firebaseToken)
+    })
+    .catch(err => console.log('error', err));
 
   return (
     <div className="columns is-centered is-vcentered">

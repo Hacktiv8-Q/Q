@@ -2,6 +2,7 @@ import axios from "config/axios";
 import { LOGIN_ADMIN, LOGIN_CASHIER } from "store/types";
 
 export const loginAdmin = (dataLogin) => (dispatch) => {
+  console.log(dataLogin, "<<<<<<<<<<<<<< ini data login admin")
   axios({
     method: "post",
     url: "/admins/login",

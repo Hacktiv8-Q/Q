@@ -4,7 +4,7 @@ import QrReader from 'react-qr-reader'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { requestFirebaseNotificationPermission } from 'firebaseInit';
-import { addQueue } from '../../store/action/queue'
+import { addQueue, fetchQueueDetail, clearQueueDetail } from '../../store/action/queue'
 
 export default function QueueStatus() {
   const [deviceToken, setDeviceToken] = useState('');
@@ -19,7 +19,9 @@ export default function QueueStatus() {
         outletId: data
       }
       dispatch(addQueue(payload))
+      // dispatch(fetchQueueDetail(data))
       setScanNotDone(false)
+      dispatch(clearQueueDetail())
       history.push("/status-success")
     }
   }

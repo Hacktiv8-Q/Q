@@ -20,32 +20,32 @@ function errHandler(err, req, res, next) {
 			statusCode = 400;
 			errors.push(err.message);
 			break;
-		case "SequelizeUniqueConstraintError":
-			statusCode = 400;
-			err.errors.forEach((el) => {
-				errors.push(el.message);
-			});
-			break;
-		case "SequelizeForeignKeyConstraintError":
-			statusCode = 400;
-			errors.push(`ForeignKey error!`);
-			break;
-		case "NotFoundError":
-		case "ForbiddenError":
-		case "UnauthorizedError":
-			statusCode = 403;
-		case "BadRequestError":
-			statusCode = err.statusCode;
-			errors.push(err.message);
-			break;
-		case "TokenExpiredError":
-			statusCode = 401;
-			errors.push("Failed to authenticate");
-			break;
-		case "UnprocessibleEntity":
-			statusCode = 422;
-			errors = err.errors;
-			break;
+		// case "SequelizeUniqueConstraintError":
+		// 	statusCode = 400;
+		// 	err.errors.forEach((el) => {
+		// 		errors.push(el.message);
+		// 	});
+		// 	break;
+		// case "SequelizeForeignKeyConstraintError":
+		// 	statusCode = 400;
+		// 	errors.push(`ForeignKey error!`);
+		// 	break;
+		// case "NotFoundError":
+		// case "ForbiddenError":
+		// case "UnauthorizedError":
+		// 	statusCode = 403;
+		// case "BadRequestError":
+		// 	statusCode = err.statusCode;
+		// 	errors.push(err.message);
+		// 	break;
+		// case "TokenExpiredError":
+		// 	statusCode = 401;
+		// 	errors.push("Failed to authenticate");
+		// 	break;
+		// case "UnprocessibleEntity":
+		// 	statusCode = 422;
+		// 	errors = err.errors;
+		// 	break;
 		default:
 			errors.push(err.msg || "internal server error");
 			statusCode = err.statusCode || 500;
