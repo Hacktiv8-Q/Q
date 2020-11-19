@@ -61,7 +61,7 @@ body,
 
 /* the parent */
 .slick-slide > div {
-  margin: 0 50px !important;
+  /* margin: 0 50px !important; */
 }
 
 .disabled {

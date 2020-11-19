@@ -32,8 +32,8 @@ export default function QueueList() {
             </thead>
             <tbody className="list-group">
               {
-                queues.length > 0 &&
-                queues.filter(elem => elem.status == 'queue').map((queue, i) => (
+                queues?.length > 0 &&
+                queues?.filter(elem => elem.status == 'queue')?.map((queue, i) => (
                   <tr key={queue.id} className="list-group-item">
                     <td>
                       {i + 1}
@@ -68,8 +68,8 @@ export default function QueueList() {
             <div className="content">
               <div className="panel list-group">
                 {
-                  queues.length > 0 ?
-                    queues.filter(elem => elem.status == 'out').map((queue, i) => (
+                  queues?.length > 0 ?
+                    queues?.filter(elem => elem.status == 'out')?.map((queue, i) => (
                       <div className="panel list-group">
                         <a className="panel-block list-group-item disabled" href="!#">
                           {i + 1}. {`${queue.Customer.firstName} ${queue.Customer.lastName}`}

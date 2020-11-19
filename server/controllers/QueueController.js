@@ -15,7 +15,7 @@ class Controller {
     })
       .then(data => {
         // console.log('data', data.toJSON())
-        if(!data) throw new Error
+        if (!data) throw new Error
         res.status(200).json({ data })
       })
       .catch(err => next(err))
@@ -114,7 +114,7 @@ class Controller {
           return Queue.findAll({ where: { OutletId, status: 'queue' } })
         })
         .then(queues => {
-          if(!queues.length){
+          if (!queues.length) {
             return;
           }
           console.log('queues', queues)
@@ -140,7 +140,7 @@ class Controller {
 
           setTimeout(() => {
             sendNotificationToClient([firstQueue.deviceToken], notificationFirstQueue);
-            if (!nextQueues.length) {
+            if (nextQueues.length) {
               sendNotificationToClient(nextQueuesDeviceTokens, notificationNextQueue);
             }
           }, 2000);
