@@ -4,6 +4,7 @@ body,
 #root > .section,
 #root > .section > .container,
 #root > .section > .container > .columns {
+  background-image: linear-gradient(to bottom right, #f3fff9, #ffffff);
   min-height: 100vh;
   height: auto;
 }
@@ -11,10 +12,17 @@ body,
 .circle-wrapper {
   display: flex;
   justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .circle {
+  color: #ffffff;
+  background-color: #00d1b2;
   border: 8px solid #00d1b2;
+  -webkit-box-shadow: 4px 4px 13px 0px rgba(50, 50, 50, 0.4);
+  -moz-box-shadow: 4px 4px 13px 0px rgba(50, 50, 50, 0.4);
+  box-shadow: 4px 4px 13px 0px rgba(50, 50, 50, 0.4);
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -68,4 +76,11 @@ body,
 
 canvas {
   width: 100% !important;
+}
+
+/* utils */
+.has-shadow {
+  -webkit-box-shadow: 4px 4px 13px 0px rgba(50, 50, 50, 0.25);
+  -moz-box-shadow: 4px 4px 13px 0px rgba(50, 50, 50, 0.25);
+  box-shadow: 4px 4px 13px 0px rgba(50, 50, 50, 0.25);
 }

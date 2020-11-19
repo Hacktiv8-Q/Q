@@ -18,10 +18,12 @@ export default function QRCodePage() {
         <div className="container">
           <div className="columns is-centered">
             <div className="column">
-              <QRCode
-                value={outletId}
-                size="500"
-              />
+              <div className="container has-text-centered p-2 border-light has-shadow">
+                <QRCode
+                  value={outletId}
+                  size="500"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -11,19 +11,55 @@ export default function Categories() {
         </h1>
         <div className="content">
           <div className="panel list-group">
-            <Link to={{pathname:"/outlet-list", state: {category: "kesehatan"}}} className="panel-block list-group-item">
-              Kesehatan
+            <Link
+              to={{
+                pathname: "/outlet-list",
+                state: {
+                  name: "Healt Care",
+                  category: "kesehatan"
+                }
+              }}
+              className="panel-block list-group-item"
+            >
+              Healt Care
             </Link>
-            <Link to={{pathname:"/outlet-list", state: {category: "tempat makan"}}} className="panel-block list-group-item">
-            Tempat Makan
+            <Link
+              to={{
+                pathname: "/outlet-list",
+                state: {
+                  name: "Restaurants",
+                  category: "tempat-makan"
+                }
+              }}
+              className="panel-block list-group-item"
+            >
+              Restaurants
             </Link>
-            <Link to={{pathname:"/outlet-list", state: {category: "otomotif"}}} className="panel-block list-group-item">
-            Otomotif
+            <Link
+              to={{
+                pathname: "/outlet-list",
+                state: {
+                  name: "Automotive",
+                  category: "otomotif"
+                }
+              }}
+              className="panel-block list-group-item"
+            >
+              Automotive
             </Link>
-            <Link to={{pathname:"/outlet-list", state: {category: "others"}}} className="panel-block list-group-item">
-            Others
+            <Link
+              to={{
+                pathname: "/outlet-list",
+                state: {
+                  name: "Others",
+                  category: "lain"
+                }
+              }}
+              className="panel-block list-group-item"
+            >
+              Others
             </Link>
-           </div>
+          </div>
         </div>
       </div>
     </div>

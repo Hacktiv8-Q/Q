@@ -12,7 +12,7 @@ export default function QRCodeDetail() {
         <h1 className="title has-text-centered">
           Your Verification QR Code
         </h1>
-        <div className="container has-text-centered py-5">
+        <div className="container has-text-centered p-2 border-light has-shadow">
           <QRCode
             value={location.state.uniqueCode}
             size="300"

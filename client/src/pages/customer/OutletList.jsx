@@ -71,7 +71,7 @@ export default function OutletList() {
     dispatch(fetchAllOutlet())
   }, [])
 
-  const category = location.state.category
+  const { name, category } = location.state
   const outletByCategory = outletsCustomer.filter(el => {
     return el.category === category
   })
@@ -100,7 +100,7 @@ export default function OutletList() {
       <div className="column is-7-desktop is-10-tablet">
         <BackButton />
         <h1 className="title">
-          List of {category}
+          List of {name}
         </h1>
         <Slider {...settings}>
 

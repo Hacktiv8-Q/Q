@@ -49,7 +49,10 @@ export default function QueueStatus() {
             style={{ width: '100%' }}
           />
         }
-        <p className="subtitle has-text-centered mt-3">Scan QRCode from Outlet</p>
+        <p className="subtitle has-text-centered mt-3">
+          <i className="fas fa-qrcode mr-3" />
+          Scan QRCode from Outlet
+        </p>
       </div>
     </div>
   )
