@@ -19,6 +19,7 @@ export default function StatusQueue(props) {
 
   onMessageListener()
     .then((payload) => {
+      dispatch(fetchQueueDetail(props.outletId))
       const { title, body } = payload.data;
       console.log(`message ${title}; ${body}`);
     })
