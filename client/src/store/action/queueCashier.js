@@ -24,7 +24,7 @@ export const updateCashierQueue = ({ token, queueId, ...data }) => dispatch => {
     data
   })
     .then(() => {
-
+      dispatch(fetchCashierQueue(data.OutletId, data.token))
     })
     .catch(console.log)
 }

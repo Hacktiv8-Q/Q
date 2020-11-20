@@ -34,7 +34,7 @@ export const onMessageListener = () =>
       const notificationTitle = payload.data.title;
       const notificationOptions = {
         body: payload.data.body,
-        icon: '/logo192.png'
+        icon: '/icon-192x192.png'
       };
 
       const notification = new Notification(notificationTitle, notificationOptions);

@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
+import logo from 'q-logo.png'
 
 export default function ChooseRole() {
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-8">
         <div className="box border-light py-5">
+          <div className="columns is-centered is-mobile">
+            <div className="column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
+              <figure className="image is-square">
+                <img src={logo} />
+              </figure>
+            </div>
+          </div>
           <h1 className="title has-text-centered pt-5">
             Welcome Back to <abbr className="is-flex-mobile is-hidden-mobile" title="Queue App">Q App!</abbr>
             <br />

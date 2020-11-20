@@ -39,8 +39,8 @@ export default function Login() {
   return (
     <div className="columns is-centered is-vcentered">
       <div className="column is-6">
-        <h1 className="title has-text-centered">Admin Login</h1>
         <div className="box">
+          <h1 className="title has-text-centered">Admin Login</h1>
           <div className="field">
             <label className="label">Email</label>
             <div className="control has-icons-left has-icons-right">

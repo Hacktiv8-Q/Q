@@ -2,7 +2,7 @@ import BackButton from "components/BackButton";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchCashierQueue, updateCashierQueue } from "store/action/queueCashier";
+import { fetchCashierQueue } from "store/action/queueCashier";
 
 export default function QueueList() {
   const outletId = localStorage.outletId
@@ -32,7 +32,8 @@ export default function QueueList() {
             </thead>
             <tbody className="list-group">
               {
-                queues.length > 0 && queues.filter(elem => elem.status == 'queue').map((queue, i) => (
+                queues?.length > 0 &&
+                queues?.filter(elem => elem.status == 'queue')?.map((queue, i) => (
                   <tr key={queue.id} className="list-group-item">
                     <td>
                       {i + 1}
@@ -51,13 +52,6 @@ export default function QueueList() {
                           </Link>
                         )
                       }
-                      {
-                        queue.status === 'in' && (
-                          <button className="button is-success">
-                            <b>IN</b>
-                          </button>
-                        )
-                      }
                     </td>
                   </tr>
                 ))
@@ -67,20 +61,22 @@ export default function QueueList() {
         </div>
 
         <h1 className="title">
-          Today Queue
+          History Queue
         </h1>
         <div className="columns">
           <div className="column is-8">
             <div className="content">
               <div className="panel list-group">
                 {
-                  queues.length > 0 && queues.map((queue, i) => (
+                  queues?.length > 0 ?
+                    queues?.filter(elem => elem.status == 'out')?.map((queue, i) => (
                       <div className="panel list-group">
-                        <a key={queue.id} className="panel-block list-group-item disabled" href="!#">
-                          {i+1}. {queue.Customer.firstName} {queue.Customer.lastName}
+                        <a className="panel-block list-group-item disabled" href="!#">
+                          {i + 1}. {`${queue.Customer.firstName} ${queue.Customer.lastName}`}
                         </a>
                       </div>
-                  ))
+                    ))
+                    : <p className="subtitle p-3">No queue history</p>
                 }
               </div>
             </div>

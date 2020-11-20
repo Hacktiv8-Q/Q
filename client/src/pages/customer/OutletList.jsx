@@ -71,7 +71,7 @@ export default function OutletList() {
     dispatch(fetchAllOutlet())
   }, [])
 
-  const category = location.state.category
+  const { name, category } = location.state
   const outletByCategory = outletsCustomer.filter(el => {
     return el.category === category
   })
@@ -100,7 +100,7 @@ export default function OutletList() {
       <div className="column is-7-desktop is-10-tablet">
         <BackButton />
         <h1 className="title">
-          List of Dinner Place
+          List of {name}
         </h1>
         <Slider {...settings}>
 
@@ -116,7 +116,7 @@ export default function OutletList() {
                     </div>
                     <div className="card-content">
                       <p className="title is-4">{outlet.name}</p>
-                      <p className="title is-4">Queue: {outlet.Queues.filter(el => el.status==="queue").length}</p>
+                      <p className="title is-4">Queue: {outlet.Queues.filter(el => el.status === "queue").length}</p>
                       <div className="content">
                         <button onClick={() => handleAddQueue(outlet.id)} className="button is-primary is-fullwidth is-medium">ADD ME</button>
                       </div>
